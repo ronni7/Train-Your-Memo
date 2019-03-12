@@ -38,184 +38,109 @@ public class Newgame {
     private Button ExitFromGame;
     @FXML
     private HBox TimeBox;
-    private boolean endflag = false;
+
     private MainController mainController;
-    private Timer timer;
-    private int time = 1;
-    private int minutes = 0;
-    private int boardHeight;
-    private int boardWidth;
+    private Clock clock;
     private Board gameBoard;
-    private int size;
-   // private Image unselected;
-    private int counter;
-    private int[] matchedId;
-    private ToggleButton[] buttonsMatched;
-    private ConfigurationManager configurationManager = new ConfigurationManager();
-    private double imageheight;
+    private ConfigurationManager configurationManager;
+    private double imageHeight;
     private String pack;
     private LEVELS level;
+    private int clickedButtonsCounter;
 
     public Newgame() {
-        gameBoard = new Board();
-        matchedId = new int[2];
-        buttonsMatched = new ToggleButton[2];
-    }
-
-    public int getBoardHeight() {
-        return boardHeight;
-    }
-
-    public void setBoardHeight(int boardHeight) {
-        this.boardHeight = boardHeight;
-    }
-
-    public int getBoardWidth() {
-        return boardWidth;
-    }
-
-    public void setBoardWidth(int boardWidth) {
-        this.boardWidth = boardWidth;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public int getCounter() {
-        return counter;
-    }
-
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
-
-    public void setMatchedId(int[] matchedId) {
-        this.matchedId = matchedId;
-    }
-
-
-    public void setTimer() {
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    String single, doubl;
-                    if (time < 10) single = "0";
-                    else single = "";
-                    if (minutes < 10) doubl = "0";
-                    else doubl = "";
-                    if (time >= 0) {
-                        //  timeValue.setText(doubl + String.valueOf(minutes) + ":" + single + String.valueOf(time));
-                        timeValue.setText(doubl + minutes + ":" + single + time);
-                        time++;
-                        if (time % 60 == 0) {
-                            minutes++;
-                            time = 0;
-                        }
-                    } else {
-                        timer.cancel();
-                        //  System.out.println(timeValue.getText());
-                    }
-                });
-
-            }
-        }, 1000, 1000);
+        gameBoard = new Board(new int[2], new ToggleButton[2]);
+        clock = new Clock();
+        configurationManager = new ConfigurationManager();
     }
 
     public void initialize() throws NullPointerException {
-
-        // TODO: 2019-02-03 sizing resizing game board, images fit to the buttons & stuff
         try {
             configurationManager.loadParameters();
         } catch (IOException e) {
             Back();
         }
-        setTimer();
+        clock.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    clock.updateTimer();
+                    timeValue.setText(clock.getTimeValue());
+                });
+
+            }
+        }, 1000, 1000);
         AdjustElementsSizes();
         level = LEVELS.valueOf(configurationManager.getParameter("Level"));
         pack = configurationManager.getParameter("Pack");
-        this.setSize(Integer.parseInt(configurationManager.getParameter("Size")));
-        switch (this.getSize()) {
+        gameBoard.setSize(Integer.parseInt(configurationManager.getParameter("Size")));
+
+        switch (gameBoard.getSize()) {
             case 16: {
-            //    this.imageheight = 120;
-this.imageheight = grid.getPrefHeight()/8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
-                System.out.println("imageheight = " + imageheight);
+
+                this.imageHeight = grid.getPrefHeight() / 8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
+                System.out.println("imageHeight = " + imageHeight);
                 System.out.println("grid = " + grid.getPrefHeight());
                 break;
             }
             case 32: {
-          //      this.imageheight = 100;
-                this.imageheight = grid.getPrefHeight()/8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
-                System.out.println("imageheight = " + imageheight);
+
+                this.imageHeight = grid.getPrefHeight() / 8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
+                System.out.println("imageHeight = " + imageHeight);
                 System.out.println("grid = " + grid.getPrefHeight());
                 break;
             }
             case 48: {
-           //     this.imageheight = 90;
-                this.imageheight = grid.getPrefHeight()/9; //for 6 images in a column make 1/9 image height so they wont affect top & bottom panels
+
+                this.imageHeight = grid.getPrefHeight() / 9; //for 6 images in a column make 1/9 image height so they wont affect top & bottom panels
                 System.out.println("grid = " + grid.getPrefHeight());
-                System.out.println("imageheight = " + imageheight);
+                System.out.println("imageHeight = " + imageHeight);
                 break;
             }
             case 64: {
-            //    this.imageheight = 65;
-                this.imageheight = grid.getPrefHeight()/10;  //for 8 images in a column make 1/10 image height so they wont affect top & bottom panels
+
+                this.imageHeight = grid.getPrefHeight() / 10;  //for 8 images in a column make 1/10 image height so they wont affect top & bottom panels
                 System.out.println("grid = " + grid.getPrefHeight());
-                System.out.println("imageheight = " + imageheight);
+                System.out.println("imageHeight = " + imageHeight);
                 break;
             }
             default: {
                 break;
             }
         }
-        //  private double imagewidth;
-        double imagewidth = this.imageheight * 1.5;
-        this.setBoardWidth(Integer.parseInt(configurationManager.getParameter("Width")));
-        this.setBoardHeight(this.getSize() / this.getBoardWidth());
-        this.setCounter(0);
-        Image unselected = new Image(this.getClass().getResourceAsStream("/cover.jpg"), imagewidth, imageheight, true, false);
-        this.setMatchedId(new int[]{0, 0});
+        double imagewidth = this.imageHeight * 1.5;
+        gameBoard.setBoardWidth(Integer.parseInt(configurationManager.getParameter("Width")));
+        gameBoard.calculateBoardHeight();
+        Image unselected = new Image(this.getClass().getResourceAsStream("/cover.jpg"), imagewidth, imageHeight, true, false);
 
         File dir = new File("./src/images/" + pack);
-
         File[] filelist;
         filelist = dir.listFiles();
         int length = 0;
         try {
             if (filelist != null) {
                 length = filelist.length;
-            } else {
+            }/* else {
                 Back();
-            }
+            }*/
         } catch (NullPointerException e) {
-
             Back();
         }
         Random r = new Random();
         int id;
-
-        for (int i = 0; i < size / 2; i++) {
+        for (int i = 0; i < gameBoard.getSize() / 2; i++) {
             id = r.nextInt(length);
-
 
             while (filelist[id] == null) id = r.nextInt(length);
             //  //System.out.println("I FOUND DOUBLED! and replaced it with: " + id);
-            Image temp = new Image(filelist[id].toURI().toString(), imagewidth, imageheight, false, false);
+            Image temp = new Image(filelist[id].toURI().toString(), imagewidth, imageHeight, false, false);
             filelist[id] = null;
 
             for (int j = 0; j < 2; j++) {
                 ImageView ims = new ImageView(temp);
-                //   ims.setFitWidth(imagewidth);
-                //   ims.setFitHeight(imageheight);
                 ToggleButton toggle = new ToggleButton();
                 ims.imageProperty().bind(Bindings.when(toggle.selectedProperty()).then(temp).otherwise(unselected));
-                ims.setFitHeight(this.imageheight);
+                ims.setFitHeight(imageHeight);
                 ims.setFitWidth(imagewidth);
                 //  System.out.println("ims.getFitHeight() = " + ims.getFitHeight());
                 //System.out.println("ims.getFitWidth() = " + ims.getFitWidth());
@@ -225,26 +150,26 @@ this.imageheight = grid.getPrefHeight()/8; //for 4 images in a column make 1/8 i
                     ToggleButton temporary = (ToggleButton) event.getSource();
                     temporary.setSelected(true);
                     int clickedID = gameBoard.GetIdFromToggle(temporary);
-                    matchedId[counter] = clickedID;
-                    buttonsMatched[counter++] = temporary;
+                    // matchedId[clickedButtonsCounter] = clickedID;
+                    gameBoard.getMatchedId()[clickedButtonsCounter] = clickedID;
+
+                    gameBoard.getButtonsMatched()[clickedButtonsCounter++] = temporary;
                     //System.out.println("Source: " + temporary.toString() +
                     //   " clickedID:  " + clickedID +
-                    // "matchedID= " + matchedId[counter - 1] +
-                    //" ButtonsMatched: " + buttonsMatched[counter - 1] +
-                    //"counter: " + (counter - 1));
-
+                    // "matchedID= " + matchedId[clickedButtonsCounter - 1] +
+                    //" ButtonsMatched: " + buttonsMatched[clickedButtonsCounter - 1] +
+                    //"clickedButtonsCounter: " + (clickedButtonsCounter - 1));
                     isMatched(temporary);
-                 });
+                });
                 BoardNode boardNode = new BoardNode(toggle, id);
                 gameBoard.getList().add(boardNode);
             }
         }
-
         Collections.shuffle(gameBoard.getList());
         //  System.out.println(grid.getWidth()+"act- pref:"+grid.getPrefWidth()+"act"+grid.getHeight()+"pref"+grid.getPrefHeight()+"Hgap"+grid.getHgap()+"Vgap"+grid.getVgap());
         int elements = gameBoard.getList().size() - 1;
-        for (int j = 0; j < this.getBoardHeight(); j++)
-            for (int k = 0; k < this.getBoardWidth(); k++)
+        for (int j = 0; j < gameBoard.getBoardHeight(); j++)
+            for (int k = 0; k < gameBoard.getBoardWidth(); k++)
                 grid.add(gameBoard.getList().get(elements--).getToggle(), k, j);
     }
 
@@ -252,19 +177,15 @@ this.imageheight = grid.getPrefHeight()/8; //for 4 images in a column make 1/8 i
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         double width = graphicsDevice.getDisplayMode().getWidth();
         double height = graphicsDevice.getDisplayMode().getHeight();
-
         paneOfTheGame.setPrefSize(width, height);
         borderPaneOfTheGame.setPrefSize(width, 0.9 * height);
         borderPaneOfTheGame.setLayoutY(0.05 * height);
         grid.setPrefSize(0.8 * width, 0.8 * height);
         grid.setLayoutX(0.1 * width);
         grid.setLayoutY(0.1 * height);
-
-
         ExitHBox.setPrefSize(width * 0.2, 0.05 * height);
         ExitHBox.setLayoutX(0.4 * width);
         ExitHBox.setLayoutY(0.925 * height);
-
         ExitFromGame.setPrefSize(ExitHBox.getPrefWidth(), ExitHBox.getPrefHeight());
         ExitFromGame.setLayoutX(0.5 * width - (0.0625) * width);
         ExitFromGame.setLayoutY(0.925 * height);
@@ -279,36 +200,31 @@ this.imageheight = grid.getPrefHeight()/8; //for 4 images in a column make 1/8 i
     private boolean checkWin() {
 
         if (gameBoard.win()) {
-            //  System.out.println("you won");
-            time = -1;
-            // this.endflag = true;
-            // HiddenDialogButton.fireEvent(Event onAction);
+            clock.stopTime();
             return true;
         }
         return false;
     }
 
     private void isMatched(ToggleButton temporary) {
-        //   boolean flag = false;
         //lock and unlock with reenrtrant lock...lock
         ReentrantLock lock = new ReentrantLock();
         lock.lock();
-        if (getCounter() == 2) {
-            setCounter(0);
+        if (clickedButtonsCounter == 2) {
+            clickedButtonsCounter = 0;
             grid.setMouseTransparent(true);
             final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(2);
-            if (matchedId[0] == matchedId[1] && buttonsMatched[0] != buttonsMatched[1]) { //matched
-                //flag = true;
-                //   setCounter(0);
+            if (gameBoard.getMatchedId()[0] == gameBoard.getMatchedId()[1] && gameBoard.getButtonsMatched()[0] != gameBoard.getButtonsMatched()[1]) { //matched
+
                 executor.schedule(() -> {
-                    gameBoard.DisableByID(matchedId[0]);
+                    gameBoard.DisableByID(gameBoard.getMatchedId()[0]);
                     grid.setMouseTransparent(false);
                     if (checkWin()) {
                         Platform.runLater(new Thread(() -> {
                             if (showDialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Saving))
                                 try {
                                     DataExchangeManager.insertNewScore(
-                                            configurationManager.getParameter("Login"), Time.valueOf("00:" + timeValue.getText()), this.pack, configurationManager.getParameter("Key"), this.level);
+                                            configurationManager.getParameter("Login"), Time.valueOf("00:" + timeValue.getText()), pack, configurationManager.getParameter("Key"), this.level);
                                     Back();
                                 } catch (IOException e) {
                                     Dialog dialogx = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
@@ -317,26 +233,20 @@ this.imageheight = grid.getPrefHeight()/8; //for 4 images in a column make 1/8 i
                                     dialogx.showDialog();
                                     Back();
                                 }
+                            else Back();
                         }));
-                        lock.unlock();
+                        //  lock.unlock();
                     }
                     lock.unlock();
                     grid.setMouseTransparent(false);
-
                 }, 700, TimeUnit.MILLISECONDS);
 
             } else {
-                //     setCounter(0);
-
-                // final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
                 executor.schedule(() -> {
-
-                    gameBoard.unselectToggleById(matchedId[0]);
-                    clearTables();
+                    gameBoard.unselectToggleById(gameBoard.getMatchedId()[0]);
+                    gameBoard.clearTables();
                     temporary.setSelected(false);
-
                     grid.setMouseTransparent(false);
-                    //  System.out.println(Thread.currentThread().getName() + "run2");
                 }, 700, TimeUnit.MILLISECONDS);
             }
 
@@ -345,26 +255,17 @@ this.imageheight = grid.getPrefHeight()/8; //for 4 images in a column make 1/8 i
     }
 
 
-    private void clearTables() {
-        for (int i = 0; i < 2; i++) {
-            matchedId[i] = 0;
-            buttonsMatched[i] = null;
-        }
-    }
-
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
     @FXML
     public void Back() {
-        if (this.endflag)
-            this.endflag = false;
-        mainController.loadMainScreen();
+        this.mainController.loadMainScreen();
     }
 
-    private boolean showDialog(Background b, Window w, DIALOGTYPE d) {
-        Dialog dialog = new Dialog(b, w, d);
+    private boolean showDialog(Background background, Window window, DIALOGTYPE dialogtype) {
+        Dialog dialog = new Dialog(background, window, dialogtype);
         dialog.setTitle("congratulations");
         dialog.setHeaderText("Do you want to sign your result ?");
         dialog.showDialog();

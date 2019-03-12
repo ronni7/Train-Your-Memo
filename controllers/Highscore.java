@@ -124,7 +124,7 @@ public class Highscore {
         double width = graphicsDevice.getDisplayMode().getWidth();
         double height = graphicsDevice.getDisplayMode().getHeight();
 
-        paneOfTheHighscores.setPrefSize(width, height); //because options don't really need fullscreen tho
+        paneOfTheHighscores.setPrefSize(width, height);
         this.selectionVBox.setPrefSize(0.2 * width, 0.7 * height);
         this.selectionVBox.setLayoutX(0.10 * width);
         this.selectionVBox.setLayoutY(0.15 * height);

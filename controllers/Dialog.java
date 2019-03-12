@@ -4,7 +4,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
@@ -17,10 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
 import java.awt.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -40,11 +36,9 @@ public class Dialog {
     private Label title;
     private Label header;
     private ArrayList<Button> buttons;
-    private double height;
-    private TextField login = new TextField("login");
-    private TextField password = new TextField("accesskey");
-    private double width;
-    private String salt;
+    private TextField login;
+    private TextField password;
+
 
     public void setHeaderText(String txt) {
         this.header.setText(txt);
@@ -64,6 +58,8 @@ public class Dialog {
         this.buttonHBox = new HBox();
         this.headerHbox = new HBox();
         this.titleHbox = new HBox();
+        login = new TextField("login");
+        password = new TextField("accesskey");
     }
 
     public int getValidationResult() {
@@ -72,9 +68,9 @@ public class Dialog {
 
     private void adjustElementsSizes() {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        width = graphicsDevice.getDisplayMode().getWidth();
-        height = graphicsDevice.getDisplayMode().getHeight();
-        this.pane.setPrefSize(0.4 * width, 0.3 * height);
+        double width = graphicsDevice.getDisplayMode().getWidth();
+        double height = graphicsDevice.getDisplayMode().getHeight();
+        pane.setPrefSize(0.4 * width, 0.3 * height);
 
         titleHbox.setPrefSize(pane.getPrefWidth(), 0.2 * pane.getPrefHeight());
         titleHbox.setLayoutX(0);//may not be useful
@@ -135,8 +131,10 @@ public class Dialog {
                 password.setOnAction(event ->
                         {
                             String text = password.getText(); //event.getSource().getText(); is redundant
-                            if (text.length() > 6)
+                            if (text.length() > 6) {
                                 text = text.substring(0, 6);
+                                password.setText(text);
+                            }
                             if (isInvalidLoginOrKey(text))
                                 // TODO: 2019-02-09 replacing text
                                 password.setText(text);
@@ -144,13 +142,11 @@ public class Dialog {
                         }
                 );
                 Button ok = new Button("Validate");
-                //ok.setText("Validate");
+
                 ok.setOnAction(event -> {
-                    //  System.out.println(password.getText().trim());
+
                     try {
-                        //     System.out.println(BCrypt.hashpw(password.getText(),salt));
-// save it to file to make things work
-                        result = DataExchangeManager.validateKey(login.getText(), password.getText());
+                         result = DataExchangeManager.validateKey(login.getText(), password.getText());
                         if (result)
                             validationResult = 1;
                     } catch (IOException e) {
@@ -180,7 +176,6 @@ public class Dialog {
                 okButton.setOnAction(event -> {
                     newWindow.close();
                     result = true;
-
                 });
                 this.buttons.add(okButton);
 
@@ -192,17 +187,18 @@ public class Dialog {
             case Saving: {
                 Button okButton = new Button("Yes");
                 result = false;
-
                 okButton.setOnAction(event -> {
                     newWindow.close();
                     result = true;
 
                 });
                 Button cancelButton = new Button("Cancel");
-                cancelButton.setOnAction(event -> newWindow.close());
+                cancelButton.setOnAction(event -> {
+                    result = false;
+                    newWindow.close();
+                });
                 buttons.add(okButton);
                 buttons.add(cancelButton);
-
                 adjustElementsSizes();
                 buildDialogWindow();
 
