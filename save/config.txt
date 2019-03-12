@@ -1,0 +1,7 @@
+Key:null
+Level:Average
+Theme:light
+Pack:NationalFlags
+Width:8
+Size:32
+Music:false

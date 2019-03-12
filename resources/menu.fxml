@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="menuGrid" alignment="center" hgap="20" prefHeight="400" prefWidth="600" vgap="15" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Menu" stylesheets="@../fonts/textstyle.css">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Button id="New Game" mnemonicParsing="false" onAction="#newGame" prefHeight="100.0" prefWidth="250.0" text="New Game" GridPane.rowIndex="23">
+         <effect>
+            <DropShadow color="#18b523" />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button id="Options" mnemonicParsing="false" onAction="#setOptions" prefHeight="100.0" prefWidth="250.0" text="Options" GridPane.rowIndex="31">
+         <effect>
+            <DropShadow color="#18b523" />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button id="Exit" mnemonicParsing="false" onAction="#exit" prefHeight="100.0" prefWidth="250.0" text="Exit" GridPane.rowIndex="39">
+         <effect>
+            <DropShadow color="#18b523" />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button id="Credits" mnemonicParsing="false" onAction="#openCredits" prefHeight="100.0" prefWidth="250.0" text="Credits" GridPane.rowIndex="35">
+         <effect>
+            <DropShadow color="#18b523" />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button id="Highscores" mnemonicParsing="false" onAction="#openHighscoreTable" prefHeight="100.0" prefWidth="250.0" text="Highscore" GridPane.rowIndex="27">
+         <effect>
+            <DropShadow color="#18b523" />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Label fx:id="Title" alignment="CENTER" contentDisplay="CENTER" text="Memo!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="18" GridPane.valignment="CENTER">
+         <font>
+            <Font  size="100.0" />
+         </font>
+      </Label>
+   </children>
+</GridPane>

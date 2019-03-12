@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="paneOfTheHighscores" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../fonts/textstyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Highscore">
+    <children>
+        <VBox fx:id="selectionVBox" alignment="CENTER" layoutX="67.0" layoutY="49.0" prefHeight="409.0" prefWidth="165.0">
+            <children>
+
+                <Label fx:id="levelLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="277.0" text="Level:">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="165.0">
+               <children>
+                      <ChoiceBox fx:id="level" prefHeight="54.0" prefWidth="178.0" />
+               </children>
+            </HBox>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="268.0" text="Your best:" />
+                <Label fx:id="bestTime" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="268.0" text="Your best time:" />
+            </children>
+        </VBox>
+        <VBox fx:id="scoreVBox" alignment="CENTER" layoutX="272.0" layoutY="1.0" prefHeight="600.0" prefWidth="257.0">
+            <children>
+                <Label fx:id="bestScore" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="257.0" text="Best Scores " />
+                <ListView fx:id="table" prefHeight="409.0" prefWidth="200.0" />
+                <Button fx:id="Back" mnemonicParsing="false" onAction="#Back" text="Main Menu">
+                    <effect>
+                        <DropShadow color="#18b523" />
+                    </effect>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</Pane>

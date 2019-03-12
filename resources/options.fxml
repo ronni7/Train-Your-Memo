@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+
+<AnchorPane prefHeight="633.0" prefWidth="746.0" stylesheets="@../fonts/textstyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Options">
+   <children>
+      <Pane fx:id="paneOfOptions" layoutY="4.0" prefHeight="640.0" prefWidth="758.0">
+         <children>
+            <HBox fx:id="levelHBox" alignment="CENTER" layoutX="161.0" layoutY="81.0" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                <Label fx:id="levelLabel" prefHeight="20.0" prefWidth="89.0" text="Level:">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <ChoiceBox fx:id="level" prefHeight="25.0" prefWidth="196.0" />
+               </children>
+            </HBox>
+            <HBox fx:id="musicHBox" alignment="CENTER" layoutX="273.0" layoutY="295.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="musicLabel" prefHeight="20.0" prefWidth="89.0" text="Music:  ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                <CheckBox fx:id="music" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#MusicChanged" />
+               </children>
+            </HBox>
+            <HBox fx:id="saveHBox" alignment="CENTER" layoutX="151.0" layoutY="474.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                <Button fx:id="save" mnemonicParsing="false" onAction="#ShowDialog" text="Save " />
+               </children>
+            </HBox>
+            <HBox fx:id="mainMenuHBox" alignment="CENTER" layoutX="373.0" layoutY="474.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                <Button fx:id="back" mnemonicParsing="false" onAction="#Back" text="Main Menu" />
+               </children>
+            </HBox>
+            <HBox fx:id="themeHBox" alignment="CENTER" layoutX="265.0" layoutY="395.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="themeLabel" prefHeight="20.0" prefWidth="89.0" text="Theme:  ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                <ToggleButton fx:id="theme" mnemonicParsing="false" onAction="#Toggled" />
+               </children>
+            </HBox>
+            <HBox fx:id="packHBox" alignment="CENTER" layoutX="95.0" layoutY="195.0" prefHeight="100.0" prefWidth="539.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="90.0" text="Pack:" />
+                  <ChoiceBox fx:id="pack" prefHeight="54.0" prefWidth="197.0" />
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

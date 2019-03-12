@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400" prefWidth="600" stylesheets="@../fonts/textstyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Credits">
+         <children>
+            <Button fx:id="exitButton" layoutY="469.0" mnemonicParsing="false" onAction="#Back" stylesheets="@../fonts/textstyle.css" text="Back to menu" textAlignment="CENTER">
+               <effect>
+                  <DropShadow color="#18b523" />
+               </effect>
+            </Button>
+            <Label fx:id="additionalLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="233.0" text="Version 1.42 released 01-02-2019" textAlignment="CENTER" />
+            <Label fx:id="infoLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutY="49.0" text="© Copyright Marcin Augustynowicz 2018" textAlignment="CENTER" />
+
+         </children>
+      </Pane>
+
+
