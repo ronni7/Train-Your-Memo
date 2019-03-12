@@ -1,7 +1,7 @@
-Size:64
-Music:false
+Size:48
+Music:true
 Theme:light
-Level:Master
+Level:Expert
 Login:Lebowski
 Pack:NationalFlags
 Width:8

@@ -128,8 +128,6 @@ public class Menu {
         optionsController.setConfigurationManager(configurationManager);
         optionsController.loadData();
         mainController.setScreen(pane);
-
-
     }
 
     @FXML

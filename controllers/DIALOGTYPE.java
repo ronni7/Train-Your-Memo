@@ -1,8 +1,8 @@
 package controllers;
 
 public enum DIALOGTYPE {
-   Information ,
-  Saving,
+    Information,
+    Saving,
     Input
 
 }

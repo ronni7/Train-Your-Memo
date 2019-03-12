@@ -41,10 +41,11 @@ public class Dialog {
     private Label header;
     private ArrayList<Button> buttons;
     private double height;
-   private TextField login = new TextField("login");
-    private   TextField password = new TextField("accesskey");
+    private TextField login = new TextField("login");
+    private TextField password = new TextField("accesskey");
     private double width;
     private String salt;
+
     public void setHeaderText(String txt) {
         this.header.setText(txt);
     }
@@ -53,7 +54,7 @@ public class Dialog {
         this.background = background;
         this.parent = parent;
         this.type = type;
-        this.validationResult=-1;
+        this.validationResult = -1;
         this.result = false;
         this.newWindow = new Stage();
         this.pane = new Pane();
@@ -73,12 +74,8 @@ public class Dialog {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         width = graphicsDevice.getDisplayMode().getWidth();
         height = graphicsDevice.getDisplayMode().getHeight();
-        //  System.out.println("width: " + width + "  height " + height);
         this.pane.setPrefSize(0.4 * width, 0.3 * height);
-        //   System.out.println("pref pane width: " + pane.getPrefWidth() + "  height " + pane.getPrefHeight());
-        //   pane.setLayoutX(0.3 * width);
-        //   pane.setLayoutY(0.4 * height);
-        //  System.out.println("positionx : " + pane.getLayoutX() + "  y:  " + pane.getLayoutY());
+
         titleHbox.setPrefSize(pane.getPrefWidth(), 0.2 * pane.getPrefHeight());
         titleHbox.setLayoutX(0);//may not be useful
         titleHbox.setLayoutY(0);//may not be useful
@@ -105,10 +102,13 @@ public class Dialog {
         buttonHBox.setLayoutY(0.6 * pane.getPrefHeight());
         buttonHBox.setPadding(new Insets(0.15 * buttonHBox.getPrefHeight()));
         buttonHBox.setSpacing(0.2 * buttonHBox.getPrefWidth());
+        buttonHBox.setAlignment(Pos.CENTER);
         int buttonCount = buttons.size();
-        for (Button b : buttons) {
-            b.setPrefSize(buttonHBox.getPrefWidth() / buttonCount, buttonHBox.getPrefHeight() / buttonCount);
-        }
+        if (buttonCount == 1)
+            buttons.get(0).setPrefSize(buttonHBox.getPrefWidth() / 2, buttonHBox.getPrefHeight() / 2);
+        else
+            for (Button b : buttons)
+                b.setPrefSize(buttonHBox.getPrefWidth() / buttonCount, buttonHBox.getPrefHeight() / buttonCount);
         buttonHBox.getChildren().addAll(buttons);
         pane.getChildren().addAll(titleHbox, headerHbox, buttonHBox);
     }
@@ -127,8 +127,8 @@ public class Dialog {
             case Input: {
                 login.setOnAction(event ->
                 {
-                    String text= login.getText();
-                    if(isInvalidLoginOrKey(text))
+                    String text = login.getText();
+                    if (isInvalidLoginOrKey(text))
                         login.setText(text);
                 });
 
@@ -148,14 +148,14 @@ public class Dialog {
                 ok.setOnAction(event -> {
                     //  System.out.println(password.getText().trim());
                     try {
-                   //     System.out.println(BCrypt.hashpw(password.getText(),salt));
+                        //     System.out.println(BCrypt.hashpw(password.getText(),salt));
 // save it to file to make things work
-                        result = DataExchangeManager.validateKey(login.getText(),password.getText());
-                        if(result)
-                           validationResult=1;
+                        result = DataExchangeManager.validateKey(login.getText(), password.getText());
+                        if (result)
+                            validationResult = 1;
                     } catch (IOException e) {
                         result = false;
-                        validationResult=-1;
+                        validationResult = -1;
                     }
                     newWindow.close();
                 });
@@ -163,14 +163,14 @@ public class Dialog {
                 //  ok.setText("");
                 cancel.setOnAction(event ->
                         {
-validationResult=-9;
-                              newWindow.close();
+                            validationResult = -9;
+                            newWindow.close();
                         }
                 );
                 this.buttons.add(ok);
                 this.buttons.add(cancel);
                 this.headerHbox.getChildren().removeAll();
-                headerHbox.getChildren().addAll(login,password);
+                headerHbox.getChildren().addAll(login, password);
                 adjustElementsSizes();
                 buildDialogWindow();
                 break;
@@ -184,17 +184,8 @@ validationResult=-9;
                 });
                 this.buttons.add(okButton);
 
-                //pane.getChildren().addAll(this.header, okButton);
-
-                // New window (Stage)
                 adjustElementsSizes();
                 buildDialogWindow();
-
-                // Set position of second window, related to primary window.
-        /*newWindow.setX(primaryStage.getX()+500);
-        newWindow.setY(primaryStage.getY() + 500);*/
-
-
                 break;
 
             }
@@ -212,19 +203,8 @@ validationResult=-9;
                 buttons.add(okButton);
                 buttons.add(cancelButton);
 
-                //   GridPane pane = new GridPane();
-
-                //     pane.add(this.header, 0, 1);
-                //       pane.add(okButton, 0, 2);
-                //      pane.add(cancelButton, 1, 2);
-                //       gridPane.getChildren().addAll(secondLabel, okButton, cancelButton);
-                //   root.getChildrenUnmodifiable().get(0);
-
-                //  this.pane.getChildren().add(pane);
                 adjustElementsSizes();
                 buildDialogWindow();
-
-                // New window (Stage)
 
                 break;
             }
@@ -242,15 +222,10 @@ validationResult=-9;
 
     private void buildDialogWindow() {
         Scene secondScene = new Scene(pane, this.pane.getPrefWidth(), this.pane.getPrefHeight());
-        //
+        Window primaryStage = parent;
         pane.setBackground(background);
-
-
-        //  System.out.println("stage width: " + secondScene.getWidth() + "stage  height " + secondScene.getHeight());
-
         newWindow.initStyle(StageStyle.DECORATED);
         newWindow.setOnCloseRequest(windowEvent -> windowEvent.consume());
-        //System.out.println(this.getClass().getResource("/fonts/textstyle.css").toExternalForm()));
         newWindow.setWidth(secondScene.getWidth());
         newWindow.setHeight(secondScene.getHeight());
         newWindow.setScene(secondScene);
@@ -258,20 +233,9 @@ validationResult=-9;
         newWindow.setResizable(false);
         newWindow.setAlwaysOnTop(true);
         newWindow.toFront();
-
-        // Specifies the modality for new window.
         newWindow.initModality(Modality.WINDOW_MODAL);
-        Window primaryStage = parent;
-        //music.getScene().getWindow()
 
-        // Specifies the owner Window (parent) for new window
         newWindow.initOwner(primaryStage);
-
-        // Set position of second window, related to primary window.
-        /*newWindow.setX(primaryStage.getX()+500);
-        newWindow.setY(primaryStage.getY() + 500);*/
-
-        //  newWindow.centerOnScreen();
         newWindow.showAndWait();
         newWindow.close();
     }

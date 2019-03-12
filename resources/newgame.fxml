@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-
 
 <AnchorPane fx:id="paneOfTheGame" prefHeight="642.0" prefWidth="704.0" stylesheets="@../fonts/textstyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Newgame">
    <children>
       <BorderPane fx:id="borderPaneOfTheGame" layoutY="1.0" prefHeight="642.0" prefWidth="704.0">
          <center>
             <GridPane fx:id="grid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="10.0" BorderPane.alignment="CENTER">
-
-      </GridPane>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></GridPane>
          </center>
          <bottom>
-            <HBox fx:id="ExitHBox" alignment="CENTER" prefHeight="12.0" prefWidth="17.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="ExitHBox" alignment="BOTTOM_CENTER" prefHeight="12.0" prefWidth="17.0" BorderPane.alignment="CENTER">
                <children>
                     <Button fx:id="ExitFromGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Back" prefHeight="0.0" prefWidth="0.0" text="Exit to menu " textAlignment="CENTER">
                      <effect>
@@ -26,7 +30,7 @@
             </HBox>
          </bottom>
          <top>
-            <HBox fx:id="TimeBox" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="TimeBox" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                    <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="0.0" text="Time: " textAlignment="CENTER" />
                    <Label fx:id="timeValue" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="0.0" text="00:00" textAlignment="CENTER" />

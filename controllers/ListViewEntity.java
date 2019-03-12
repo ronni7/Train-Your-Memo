@@ -31,6 +31,6 @@ public class ListViewEntity {
 
     @Override
     public String toString() {
-        return nickname + " " + "Time:  " + score +" Pack: " + pack;
+        return nickname + " " + score;
     }
 }

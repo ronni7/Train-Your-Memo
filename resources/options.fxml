@@ -31,7 +31,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                <CheckBox fx:id="music" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#MusicChanged" />
+                <CheckBox fx:id="music" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#MusicChanged" textAlignment="RIGHT" />
                </children>
             </HBox>
             <HBox fx:id="saveHBox" alignment="CENTER" layoutX="151.0" layoutY="474.0" prefHeight="100.0" prefWidth="200.0">

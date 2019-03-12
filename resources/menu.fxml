@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="menuGrid" alignment="center" hgap="20" prefHeight="400" prefWidth="600" vgap="15" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Menu" stylesheets="@../fonts/textstyle.css">
+<GridPane fx:id="menuGrid" alignment="center" hgap="20" prefHeight="400" prefWidth="600" stylesheets="@../fonts/textstyle.css" vgap="15" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Menu">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -79,9 +79,12 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
    </rowConstraints>
    <children>
-      <Button id="New Game" mnemonicParsing="false" onAction="#newGame" prefHeight="100.0" prefWidth="250.0" text="New Game" GridPane.rowIndex="23">
+      <Button id="New Game" mnemonicParsing="false" onAction="#newGame" prefHeight="100.0" prefWidth="250.0" text="New Game" GridPane.rowIndex="27">
          <effect>
             <DropShadow color="#18b523" />
          </effect>
@@ -89,7 +92,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button id="Options" mnemonicParsing="false" onAction="#setOptions" prefHeight="100.0" prefWidth="250.0" text="Options" GridPane.rowIndex="31">
+      <Button id="Options" mnemonicParsing="false" onAction="#setOptions" prefHeight="100.0" prefWidth="250.0" text="Options" GridPane.rowIndex="35">
          <effect>
             <DropShadow color="#18b523" />
          </effect>
@@ -97,7 +100,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button id="Exit" mnemonicParsing="false" onAction="#exit" prefHeight="100.0" prefWidth="250.0" text="Exit" GridPane.rowIndex="39">
+      <Button id="Exit" mnemonicParsing="false" onAction="#exit" prefHeight="100.0" prefWidth="250.0" text="Exit" GridPane.rowIndex="43">
          <effect>
             <DropShadow color="#18b523" />
          </effect>
@@ -105,7 +108,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button id="Credits" mnemonicParsing="false" onAction="#openCredits" prefHeight="100.0" prefWidth="250.0" text="Credits" GridPane.rowIndex="35">
+      <Button id="Credits" mnemonicParsing="false" onAction="#openCredits" prefHeight="100.0" prefWidth="250.0" text="Credits" GridPane.rowIndex="39">
          <effect>
             <DropShadow color="#18b523" />
          </effect>
@@ -113,7 +116,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button id="Highscores" mnemonicParsing="false" onAction="#openHighscoreTable" prefHeight="100.0" prefWidth="250.0" text="Highscore" GridPane.rowIndex="27">
+      <Button id="Highscores" mnemonicParsing="false" onAction="#openHighscoreTable" prefHeight="100.0" prefWidth="250.0" text="Highscore" GridPane.rowIndex="31">
          <effect>
             <DropShadow color="#18b523" />
          </effect>
@@ -121,9 +124,9 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Label fx:id="Title" alignment="CENTER" contentDisplay="CENTER" text="Memo!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="18" GridPane.valignment="CENTER">
+      <Label fx:id="Title" alignment="CENTER" contentDisplay="CENTER" text="Memo!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="25" GridPane.valignment="CENTER">
          <font>
-            <Font  size="100.0" />
+            <Font size="100.0" />
          </font>
       </Label>
    </children>

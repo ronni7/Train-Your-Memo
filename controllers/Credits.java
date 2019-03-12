@@ -17,10 +17,7 @@ public class Credits {
     private MainController mainController;
     public void initialize()
     {
-       // Font font=new FontManager(50).getFont();
-    //  infoLabel.setFont(font);
-    //    additionalLabel.setFont(font);
-     //   exitButton.setFont(font);
+        // TODO: 2019-03-07 do I initialize sth here ?!
     }
 
     public void setMainController(MainController mainController) {

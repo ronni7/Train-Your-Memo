@@ -21,11 +21,7 @@ public class MainController {
     private AudioManager audioManager;
     private BackgroundManager backgroundManager;
 
-
-
-
 private ConfigurationManager configurationManager = new ConfigurationManager();
-//    private FontManager fontManager;
 
     public BackgroundManager getBackgroundManager() {
         return backgroundManager;
@@ -33,41 +29,24 @@ private ConfigurationManager configurationManager = new ConfigurationManager();
 
     @FXML
     public void initialize() {
-    /*    try {
-            configurationManager.loadParameters();
-        } catch (IOException e) {
-            System.out.println("kill me");
-        }*/
+
         loadMainScreen();
 
-        //     firstRun = false;
-        //      System.out.println(this.firstRun);
     }
-
-
 
     public void loadMainScreen() {
 
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../resources/menu.fxml"));
         Pane pane = null;
-
-
         try {
             configurationManager.loadParameters();
 
         } catch (IOException e) {
-
             Alert a=new Alert(Alert.AlertType.ERROR,"Error while loading configuration please check your files and restart or reinstall game",ButtonType.OK);
                    a.setTitle("File error");
                    a.showAndWait();
                    System.exit(-1);
         }
-        //   this.fontManager = new FontManager(50);
-
-     /*   if (firstRun) {
-            audioManager = new AudioManager();
-            System.out.println(this.firstRun + " is first run");
-        }*/
         if (Boolean.valueOf(configurationManager.getParameter("Music"))) {
             if (this.audioManager == null)
                 audioManager = new AudioManager();
@@ -78,13 +57,10 @@ private ConfigurationManager configurationManager = new ConfigurationManager();
         }
 
         try {
-         //   System.out.println(configurationManager==null);
             configurationManager.loadParameters();
-
             pane = loader.load();
             this.backgroundManager = new BackgroundManager(this.getClass(), configurationManager.getBackgroundPath());
             Background back = backgroundManager.getLoadedBackground();
-
             if (back != null)
                 mainStackPane.setBackground(back);
 
@@ -110,11 +86,8 @@ private ConfigurationManager configurationManager = new ConfigurationManager();
         setScreen(pane);
     }
     public void setScreen(Pane pane) {
-
         mainStackPane.getChildren().clear();
         mainStackPane.getChildren().add(pane);
-
-
     }
 
 }
