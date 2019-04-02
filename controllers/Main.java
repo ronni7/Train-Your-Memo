@@ -1,7 +1,6 @@
 package controllers;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -61,7 +60,7 @@ public class Main extends Application {
                         success.setTitle("Success ! ");
                         success.setHeaderText("Key is valid, remember to do not lose it or give it to someone else! ");
                         success.showDialog();
-                        configurationManager.saveKey(dialog.getPassword());
+                        configurationManager.saveKey(dialog.getAccessKey());
                         configurationManager.saveLogin(dialog.getLogin());
 
                     } else if (-1 == result) {

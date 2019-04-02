@@ -31,7 +31,6 @@ public class Options {
     @FXML
     public Label levelLabel;
 
-    private boolean change=false;
     private MainController mainController;
     private ObservableList list = FXCollections.observableArrayList();
     private ObservableList packsAvailable = FXCollections.observableArrayList();
@@ -90,6 +89,7 @@ public class Options {
             map.put("Key",configurationManager.getParameter("Key"));
             map.put("Login",configurationManager.getParameter("Login"));
             //System.out.println(map.get("Key"));
+            //System.out.println("Options controller map = " + map);
             configurationManager.saveAll(map);
             Back();
         } catch (IOException e) {

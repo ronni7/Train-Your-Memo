@@ -34,7 +34,9 @@ public class Menu {
         try {
             configurationManager.loadParameters();
         } catch (IOException e) {
+            e.printStackTrace();
             showErrorDialog("Error", "An error occurred while loading game files . Please check your files and try again or reinstall game");
+
         }
     }
 
@@ -59,7 +61,7 @@ public class Menu {
         } catch (IOException e) {
             //      System.out.println("How to load problems");
             showErrorDialog("Error", "An error occurred while loading game files . Please check your files and try again or reinstall game");
-
+            e.printStackTrace();
             return;
       /*      Dialog dialog =new Dialog(mainController.getBackgroundManager().getLoadedBackground(),menuGrid.getScene().getWindow(),DIALOGTYPE.Information);
             dialog.setTitle("Error");
@@ -70,7 +72,7 @@ public class Menu {
         } catch (NullPointerException e) {
             //    System.out.println("How to load problems");
             showErrorDialog("Error", "An error occurred while loading game files . Please check your files and try again or reinstall game");
-            return;
+            e.printStackTrace();    return;
             //  showErrorDialog("Error","Hakuna matata");
             /*  Dialog dialog =new Dialog(mainController.getBackgroundManager().getLoadedBackground(),menuGrid.getScene().getWindow(),DIALOGTYPE.Information);
             dialog.setTitle("Error");
@@ -103,7 +105,7 @@ public class Menu {
             }
         }*/
         controllers.Newgame newgameController = loader.getController();
-        newgameController.setConfigurationManager(this.configurationManager);
+//        newgameController.setConfigurationManager(this.configurationManager);
 
         newgameController.setMainController(mainController);
         mainController.setScreen(pane);
@@ -233,7 +235,9 @@ public class Menu {
 
         } catch (IOException e) {
             showErrorDialog("Error", "An error occurred while loading screen. Please check your files or reinstall game");
+            e.printStackTrace();
         }
+
 
         controllers.Credits creditsController = loader.getController();
         creditsController.setMainController(mainController);

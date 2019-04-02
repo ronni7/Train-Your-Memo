@@ -1,7 +1,8 @@
-Key:null
-Level:Average
+Size:64
+Music:true
 Theme:light
+Level:Master
+Login:Lebowski
 Pack:NationalFlags
 Width:8
-Size:32
-Music:false
+Key:A7XKXD

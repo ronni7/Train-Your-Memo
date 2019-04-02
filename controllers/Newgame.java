@@ -52,6 +52,7 @@ public class Newgame {
         gameBoard = new Board(new int[2], new ToggleButton[2]);
         clock = new Clock();
         configurationManager = new ConfigurationManager();
+
     }
 
     public void initialize() throws NullPointerException {

@@ -135,6 +135,32 @@
     -fx-text-fill: #3aab2c;
     -fx-alignment: center;
 }
+.text-field {
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-weight: bold;
+
+    -fx-background-color: linear-gradient(rgba(160, 56, 223, 0.84), rgba(216, 44, 198, 0.65)),
+    radial-gradient(center 77% -31%, radius 138%, #fa35ff 85%, rgba(184, 31, 203, 0.82) 67%);
+    -fx-text-alignment: center;
+    -fx-min-width: 100%;
+    -fx-animated: true;
+    -fx-text-fill: #1e21bb;
+    -fx-font-size: 25;
+    -fx-alignment: center;
+
+}
+#websiteHyperlink
+{
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-min-width: 100%;
+    -fx-text-fill: #acaabb;
+    -fx-font-size: 25;
+    -fx-border-color: transparent;
+
+}
+
 
 
 

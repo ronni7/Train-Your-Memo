@@ -3,33 +3,38 @@ package controllers;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+
+import javax.swing.event.TreeModelEvent;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 public class Dialog {
 
-    public Pane pane;
+    private Pane pane;
     private Background background;
     private Window parent;
     private boolean result;
     private int validationResult;
     private DIALOGTYPE type;
     private Stage newWindow;
+    private LinkedList<HBox> boxes;
     private HBox titleHbox;
     private HBox headerHbox;
     private HBox buttonHBox;
@@ -37,8 +42,8 @@ public class Dialog {
     private Label header;
     private ArrayList<Button> buttons;
     private TextField login;
-    private TextField password;
-
+    private TextField accessKey;
+    private HBox websiteHbox;
 
     public void setHeaderText(String txt) {
         this.header.setText(txt);
@@ -55,11 +60,13 @@ public class Dialog {
         this.title = new Label("Title");
         this.header = new Label("Header");
         this.buttons = new ArrayList<>();
+        this.boxes = new LinkedList<>();
         this.buttonHBox = new HBox();
         this.headerHbox = new HBox();
         this.titleHbox = new HBox();
-        login = new TextField("login");
-        password = new TextField("accesskey");
+        this.login = new TextField("login");
+        this.accessKey = new TextField("accesskey");
+
     }
 
     public int getValidationResult() {
@@ -70,9 +77,11 @@ public class Dialog {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         double width = graphicsDevice.getDisplayMode().getWidth();
         double height = graphicsDevice.getDisplayMode().getHeight();
-        pane.setPrefSize(0.4 * width, 0.3 * height);
-
-        titleHbox.setPrefSize(pane.getPrefWidth(), 0.2 * pane.getPrefHeight());
+        if (type == DIALOGTYPE.Input)
+            pane.setPrefSize(0.5 * width, 0.4 * height);
+        else
+            pane.setPrefSize(0.4 * width, 0.3 * height);
+        titleHbox.setPrefSize(pane.getPrefWidth(), 0.1 * pane.getPrefHeight());
         titleHbox.setLayoutX(0);//may not be useful
         titleHbox.setLayoutY(0);//may not be useful
         title.setAlignment(Pos.CENTER);
@@ -81,10 +90,11 @@ public class Dialog {
         title.setTextOverrun(OverrunStyle.ELLIPSIS);
         titleHbox.setAlignment(Pos.CENTER);
         titleHbox.getChildren().add(title);
-
+        boxes.add(titleHbox);
         headerHbox.setPrefSize(pane.getPrefWidth(), titleHbox.getPrefHeight() * 2);
-        headerHbox.setLayoutY(0.2 * pane.getPrefHeight());
+
         headerHbox.setLayoutX(0);
+        headerHbox.setLayoutY(0.1 * pane.getPrefHeight());
         headerHbox.setAlignment(Pos.CENTER);
         header.setPrefSize(headerHbox.getPrefWidth(), headerHbox.getPrefHeight());
         header.setWrapText(true);
@@ -92,10 +102,67 @@ public class Dialog {
         header.setContentDisplay(ContentDisplay.CENTER);
         header.setTextAlignment(TextAlignment.CENTER);
         headerHbox.getChildren().add(header);
+        boxes.add(headerHbox);
+        if (type == DIALOGTYPE.Input) {
+            Hyperlink hyperlink = new Hyperlink("www.trainYourMemo.com");
+            hyperlink.setBorder(Border.EMPTY);
+            hyperlink.setAlignment(Pos.CENTER);
+            hyperlink.setOnAction(event -> {
+                if (Desktop.isDesktopSupported()) {
+                    try {
+                        Desktop.getDesktop().browse(new URI(hyperlink.getText()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            TextFlow textFlow = new TextFlow(hyperlink);
+            websiteHbox = new HBox();
+            websiteHbox.setPrefSize(0.2 * pane.getPrefWidth(), titleHbox.getPrefHeight());
+            websiteHbox.setLayoutY(0.27 * pane.getPrefHeight());
+            websiteHbox.setLayoutX(0.3 * pane.getPrefWidth());
+            websiteHbox.setAlignment(Pos.CENTER);
+
+            textFlow.setTextAlignment(TextAlignment.CENTER);
+            textFlow.setPrefSize(websiteHbox.getPrefWidth(), websiteHbox.getPrefHeight());
+
+            websiteHbox.getChildren().add(textFlow);
+            textFlow.setId("websiteHyperlink");
+            boxes.add(websiteHbox);
+            HBox loginHbox = new HBox();
+
+            HBox.setHgrow(loginHbox, Priority.ALWAYS);
+            loginHbox.setPrefSize(pane.getPrefWidth() / 2, headerHbox.getPrefHeight() / 2);
+            loginHbox.setLayoutX(0.25 * pane.getPrefWidth());
+            loginHbox.setLayoutY(0.4 * pane.getPrefHeight());
+            loginHbox.setAlignment(Pos.CENTER);
+
+            login.setPrefSize(loginHbox.getPrefWidth(), loginHbox.getPrefHeight());
+            login.setAlignment(Pos.CENTER);
+
+            loginHbox.getChildren().add(login);
+            boxes.add(loginHbox);
+
+
+            HBox accessKeyHbox = new HBox();
+            HBox.setHgrow(accessKeyHbox, Priority.ALWAYS);
+            accessKeyHbox.setPrefSize(loginHbox.getPrefWidth(), loginHbox.getPrefHeight());
+            accessKeyHbox.setLayoutX(0.25 * pane.getPrefWidth());
+            accessKeyHbox.setLayoutY(0.55 * pane.getPrefHeight());
+            accessKeyHbox.setAlignment(Pos.CENTER);
+            accessKey.setPrefSize(accessKeyHbox.getPrefWidth(), accessKeyHbox.getPrefHeight());
+            accessKey.setAlignment(Pos.CENTER);
+            accessKeyHbox.getChildren().add(accessKey);
+
+            boxes.add(accessKeyHbox);
+        }
+
 
         buttonHBox.setPrefSize(0.8 * pane.getPrefWidth(), 0.3 * pane.getPrefHeight());
         buttonHBox.setLayoutX(0.1 * pane.getPrefWidth());
-        buttonHBox.setLayoutY(0.6 * pane.getPrefHeight());
+        buttonHBox.setLayoutY(0.7 * pane.getPrefHeight());
         buttonHBox.setPadding(new Insets(0.15 * buttonHBox.getPrefHeight()));
         buttonHBox.setSpacing(0.2 * buttonHBox.getPrefWidth());
         buttonHBox.setAlignment(Pos.CENTER);
@@ -106,7 +173,10 @@ public class Dialog {
             for (Button b : buttons)
                 b.setPrefSize(buttonHBox.getPrefWidth() / buttonCount, buttonHBox.getPrefHeight() / buttonCount);
         buttonHBox.getChildren().addAll(buttons);
-        pane.getChildren().addAll(titleHbox, headerHbox, buttonHBox);
+        boxes.add(buttonHBox);
+        //  pane.getChildren().addAll(titleHbox, headerHbox, buttonHBox);
+
+        pane.getChildren().addAll(boxes);
     }
 
     public boolean getResult() {
@@ -121,6 +191,12 @@ public class Dialog {
         switch (this.type) {
 
             case Input: {
+
+
+                header.setText("If you somehow got the game, and do not own an access key, get one from:");
+
+                //header=textFlow;
+
                 login.setOnAction(event ->
                 {
                     String text = login.getText();
@@ -128,16 +204,16 @@ public class Dialog {
                         login.setText(text);
                 });
 
-                password.setOnAction(event ->
+                accessKey.setOnAction(event ->
                         {
-                            String text = password.getText(); //event.getSource().getText(); is redundant
+                            String text = accessKey.getText(); //event.getSource().getText(); is redundant
                             if (text.length() > 6) {
                                 text = text.substring(0, 6);
-                                password.setText(text);
+                                accessKey.setText(text);
                             }
                             if (isInvalidLoginOrKey(text))
                                 // TODO: 2019-02-09 replacing text
-                                password.setText(text);
+                                accessKey.setText(text);
 
                         }
                 );
@@ -146,7 +222,7 @@ public class Dialog {
                 ok.setOnAction(event -> {
 
                     try {
-                         result = DataExchangeManager.validateKey(login.getText(), password.getText());
+                        result = DataExchangeManager.validateKey(login.getText(), accessKey.getText());
                         if (result)
                             validationResult = 1;
                     } catch (IOException e) {
@@ -165,8 +241,8 @@ public class Dialog {
                 );
                 this.buttons.add(ok);
                 this.buttons.add(cancel);
-                this.headerHbox.getChildren().removeAll();
-                headerHbox.getChildren().addAll(login, password);
+                // this.headerHbox.getChildren().removeAll();
+                //  headerHbox.getChildren().addAll(login, accessKey);
                 adjustElementsSizes();
                 buildDialogWindow();
                 break;
@@ -236,8 +312,8 @@ public class Dialog {
         newWindow.close();
     }
 
-    public String getPassword() {
-        return password.getText();
+    public String getAccessKey() {
+        return accessKey.getText();
     }
 
     public String getLogin() {

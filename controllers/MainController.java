@@ -17,11 +17,16 @@ import java.io.IOException;
 
 public class MainController {
     @FXML
-    private StackPane mainStackPane= new StackPane();
+    private StackPane mainStackPane;
     private AudioManager audioManager;
     private BackgroundManager backgroundManager;
 
-private ConfigurationManager configurationManager = new ConfigurationManager();
+private ConfigurationManager configurationManager;
+
+    public MainController() {
+        mainStackPane = new StackPane();
+        configurationManager = new ConfigurationManager();
+    }
 
     public BackgroundManager getBackgroundManager() {
         return backgroundManager;
@@ -44,6 +49,7 @@ private ConfigurationManager configurationManager = new ConfigurationManager();
         } catch (IOException e) {
             Alert a=new Alert(Alert.AlertType.ERROR,"Error while loading configuration please check your files and restart or reinstall game",ButtonType.OK);
                    a.setTitle("File error");
+            e.printStackTrace();
                    a.showAndWait();
                    System.exit(-1);
         }
