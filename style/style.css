@@ -1,6 +1,6 @@
 @font-face {
     -fx-font-family: 'SedgwickAveDisplay-Regular';
-    src: url("SedgwickAveDisplay-Regular.ttf");
+    src: url("../fonts/SedgwickAveDisplay-Regular.ttf");
 }
 
 #Title {
@@ -127,6 +127,25 @@
     -fx-text-fill: #3aab2c;
     -fx-alignment: center;
 }
+.list-view .scroll-bar
+{
+    -fx-background-color: crimson;
+
+}
+
+.list-view .scroll-bar:horizontal .thumb
+{
+    -fx-border-color: derive(purple, 80%);
+
+
+}
+.list-view .scroll-bar:vertical .thumb
+{
+    -fx-background-color: derive(purple, 80%);
+    -fx-background-radius: 5em;
+
+
+}
 #bestScore
 {
     -fx-font-family: 'Sedgwick Ave Display';
@@ -159,6 +178,11 @@
     -fx-font-size: 25;
     -fx-border-color: transparent;
 
+}
+#dialogPane
+{
+    -fx-border-color: dimgrey;
+    -fx-border-width: 5px;
 }
 
 

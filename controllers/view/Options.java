@@ -1,5 +1,9 @@
-package controllers;
+package controllers.view;
 
+import controllers.ConfigurationManager;
+import controllers.nonView.DIALOGTYPE;
+import controllers.nonView.Dialog;
+import controllers.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -93,7 +97,7 @@ public class Options {
             configurationManager.saveAll(map);
             Back();
         } catch (IOException e) {
-            Dialog dialog =new Dialog(mainController.getBackgroundManager().getLoadedBackground(),music.getScene().getWindow(),DIALOGTYPE.Information);
+            Dialog dialog =new Dialog(mainController.getBackgroundManager().getLoadedBackground(),music.getScene().getWindow(), DIALOGTYPE.Information);
             dialog.setTitle("Error");
             dialog.setHeaderText("An error occurred while saving . Please check your files or reinstall game");
             dialog.showDialog();

@@ -1,4 +1,4 @@
-package controllers;
+package controllers.nonView;
 
 import javafx.concurrent.Task;
 import javafx.scene.media.AudioClip;
@@ -31,7 +31,7 @@ public class AudioManager implements Runnable {
             //System.out.println(f..getName());
             playlist.add(new AudioClip(f.getName()));
         }*/
-        audio = new AudioClip(getClass().getResource("../audio/sound.mp3").toExternalForm());
+        audio = new AudioClip(getClass().getResource("/audio/sound.mp3").toExternalForm());
        //audio= playlist.get(2);
         task = new Task() {
 

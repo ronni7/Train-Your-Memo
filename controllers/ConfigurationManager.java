@@ -70,7 +70,7 @@ parameters=(HashMap<String, String>) in.readObject();
         ObjectOutputStream out = new ObjectOutputStream(
                 new BufferedOutputStream(
                         new FileOutputStream("src/config.dat")));
-        map.put("Key","000000");
+       // map.put("Key","000000");
         out.writeObject(map);
 
         out.close();
@@ -79,8 +79,8 @@ parameters=(HashMap<String, String>) in.readObject();
 
     public String getBackgroundPath() {
         if (this.parameters.get("Theme").equals("dark"))
-            return "../background dark.jpeg";
-        else return "../background light.jpeg";
+            return "/background dark.jpeg";
+        else return "/background light.jpeg";
 
     }
 

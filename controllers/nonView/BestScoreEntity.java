@@ -1,4 +1,6 @@
-package controllers;
+package controllers.nonView;
+
+import controllers.nonView.BestScore;
 
 public class BestScoreEntity implements BestScore {
     public BestScoreEntity(String score, String pack) {

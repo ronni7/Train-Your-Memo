@@ -6,7 +6,7 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="paneOfTheGame" prefHeight="642.0" prefWidth="704.0" stylesheets="@../fonts/textstyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Newgame">
+<AnchorPane fx:id="paneOfTheGame" prefHeight="642.0" prefWidth="704.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.view.Newgame">
    <children>
       <BorderPane fx:id="borderPaneOfTheGame" layoutY="1.0" prefHeight="642.0" prefWidth="704.0">
          <center>

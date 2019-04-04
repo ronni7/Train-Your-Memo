@@ -1,5 +1,8 @@
-package controllers;
+package controllers.nonView;
 
+import controllers.nonView.BestScoreEntity;
+import controllers.nonView.LEVELS;
+import controllers.nonView.ListViewEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 

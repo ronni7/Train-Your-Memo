@@ -1,4 +1,4 @@
-package controllers;
+package controllers.nonView;
 
 public interface ListViewMapped {
      String getnickname();

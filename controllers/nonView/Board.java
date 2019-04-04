@@ -1,8 +1,6 @@
-package controllers;
+package controllers.nonView;
 
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.Background;
-import javafx.stage.Window;
 
 import java.util.ArrayList;
 

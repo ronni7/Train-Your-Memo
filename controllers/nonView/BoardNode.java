@@ -1,4 +1,4 @@
-package controllers;
+package controllers.nonView;
 
 import javafx.scene.control.ToggleButton;
 

@@ -1,5 +1,8 @@
-package controllers;
+package controllers.view;
 
+import controllers.*;
+import controllers.nonView.*;
+import controllers.nonView.Dialog;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 
@@ -77,32 +80,23 @@ public class Newgame {
         gameBoard.setSize(Integer.parseInt(configurationManager.getParameter("Size")));
 
         switch (gameBoard.getSize()) {
-            case 16: {
-
+            case 16: /*{
                 this.imageHeight = grid.getPrefHeight() / 8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
-                System.out.println("imageHeight = " + imageHeight);
-                System.out.println("grid = " + grid.getPrefHeight());
-                break;
-            }
+                            break;
+            }*/
             case 32: {
-
                 this.imageHeight = grid.getPrefHeight() / 8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
-                System.out.println("imageHeight = " + imageHeight);
-                System.out.println("grid = " + grid.getPrefHeight());
-                break;
+                    break;
             }
             case 48: {
 
                 this.imageHeight = grid.getPrefHeight() / 9; //for 6 images in a column make 1/9 image height so they wont affect top & bottom panels
-                System.out.println("grid = " + grid.getPrefHeight());
-                System.out.println("imageHeight = " + imageHeight);
+
                 break;
             }
             case 64: {
 
                 this.imageHeight = grid.getPrefHeight() / 10;  //for 8 images in a column make 1/10 image height so they wont affect top & bottom panels
-                System.out.println("grid = " + grid.getPrefHeight());
-                System.out.println("imageHeight = " + imageHeight);
                 break;
             }
             default: {
@@ -226,6 +220,11 @@ public class Newgame {
                                 try {
                                     DataExchangeManager.insertNewScore(
                                             configurationManager.getParameter("Login"), Time.valueOf("00:" + timeValue.getText()), pack, configurationManager.getParameter("Key"), this.level);
+                                    Dialog dialog = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
+                                    dialog.setTitle("Succes");
+                                    dialog.setHeaderText("Your result has been successfully signed!");
+                                    dialog.showDialog();
+
                                     Back();
                                 } catch (IOException e) {
                                     Dialog dialogx = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);

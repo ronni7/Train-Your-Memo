@@ -1,5 +1,9 @@
-package controllers;
+package controllers.view;
 
+import controllers.*;
+import controllers.nonView.BestScoreEntity;
+import controllers.nonView.DataExchangeManager;
+import controllers.nonView.ListViewEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

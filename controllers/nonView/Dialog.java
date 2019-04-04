@@ -1,4 +1,4 @@
-package controllers;
+package controllers.nonView;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
@@ -16,7 +15,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-import javax.swing.event.TreeModelEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -57,6 +55,7 @@ public class Dialog {
         this.result = false;
         this.newWindow = new Stage();
         this.pane = new Pane();
+        pane.setId("dialogPane");
         this.title = new Label("Title");
         this.header = new Label("Header");
         this.buttons = new ArrayList<>();
@@ -77,22 +76,29 @@ public class Dialog {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         double width = graphicsDevice.getDisplayMode().getWidth();
         double height = graphicsDevice.getDisplayMode().getHeight();
-        if (type == DIALOGTYPE.Input)
-            pane.setPrefSize(0.5 * width, 0.4 * height);
-        else
+
+        if (type == DIALOGTYPE.Input) {
+            pane.setPrefSize(0.6 * width, 0.6 * height);
+              headerHbox.setPrefSize(pane.getPrefWidth(), titleHbox.getPrefHeight() * 2);
+            titleHbox.setPrefSize(pane.getPrefWidth(), 0.1 * pane.getPrefHeight());
+            buttonHBox.setLayoutY(0.7 * pane.getPrefHeight());
+        } else{
             pane.setPrefSize(0.4 * width, 0.3 * height);
-        titleHbox.setPrefSize(pane.getPrefWidth(), 0.1 * pane.getPrefHeight());
+            titleHbox.setPrefSize(pane.getPrefWidth(), 0.1 * pane.getPrefHeight());
+            headerHbox.setPrefSize(pane.getPrefWidth(), titleHbox.getPrefHeight() * 4);
+            buttonHBox.setLayoutY(0.6 * pane.getPrefHeight());
+        }
+
         titleHbox.setLayoutX(0);//may not be useful
         titleHbox.setLayoutY(0);//may not be useful
         title.setAlignment(Pos.CENTER);
         title.setContentDisplay(ContentDisplay.CENTER);
         title.setTextAlignment(TextAlignment.CENTER);
         title.setTextOverrun(OverrunStyle.ELLIPSIS);
+        title.setWrapText(true);
         titleHbox.setAlignment(Pos.CENTER);
         titleHbox.getChildren().add(title);
         boxes.add(titleHbox);
-        headerHbox.setPrefSize(pane.getPrefWidth(), titleHbox.getPrefHeight() * 2);
-
         headerHbox.setLayoutX(0);
         headerHbox.setLayoutY(0.1 * pane.getPrefHeight());
         headerHbox.setAlignment(Pos.CENTER);
@@ -112,17 +118,19 @@ public class Dialog {
                     try {
                         Desktop.getDesktop().browse(new URI(hyperlink.getText()));
                     } catch (IOException e) {
+                        /// TODO: 2019-04-03 browser no workerino error message
                         e.printStackTrace();
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
+                        /// TODO: 2019-04-03 browser no workerino error message
                     }
                 }
             });
             TextFlow textFlow = new TextFlow(hyperlink);
             websiteHbox = new HBox();
-            websiteHbox.setPrefSize(0.2 * pane.getPrefWidth(), titleHbox.getPrefHeight());
-            websiteHbox.setLayoutY(0.27 * pane.getPrefHeight());
-            websiteHbox.setLayoutX(0.3 * pane.getPrefWidth());
+            websiteHbox.setPrefSize(0.5 * pane.getPrefWidth(), titleHbox.getPrefHeight());
+            websiteHbox.setLayoutY(0.2 * pane.getPrefHeight());
+            websiteHbox.setLayoutX(0.25 * pane.getPrefWidth());
             websiteHbox.setAlignment(Pos.CENTER);
 
             textFlow.setTextAlignment(TextAlignment.CENTER);
@@ -162,7 +170,7 @@ public class Dialog {
 
         buttonHBox.setPrefSize(0.8 * pane.getPrefWidth(), 0.3 * pane.getPrefHeight());
         buttonHBox.setLayoutX(0.1 * pane.getPrefWidth());
-        buttonHBox.setLayoutY(0.7 * pane.getPrefHeight());
+
         buttonHBox.setPadding(new Insets(0.15 * buttonHBox.getPrefHeight()));
         buttonHBox.setSpacing(0.2 * buttonHBox.getPrefWidth());
         buttonHBox.setAlignment(Pos.CENTER);
@@ -296,12 +304,16 @@ public class Dialog {
         Scene secondScene = new Scene(pane, this.pane.getPrefWidth(), this.pane.getPrefHeight());
         Window primaryStage = parent;
         pane.setBackground(background);
-        newWindow.initStyle(StageStyle.DECORATED);
+
+
+
+        newWindow.initStyle(StageStyle.UNDECORATED);
         newWindow.setOnCloseRequest(windowEvent -> windowEvent.consume());
         newWindow.setWidth(secondScene.getWidth());
+
         newWindow.setHeight(secondScene.getHeight());
         newWindow.setScene(secondScene);
-        newWindow.getScene().getStylesheets().add(this.getClass().getResource("/fonts/textstyle.css").toExternalForm());
+        newWindow.getScene().getStylesheets().add(this.getClass().getResource("/style/style.css").toExternalForm());
         newWindow.setResizable(false);
         newWindow.setAlwaysOnTop(true);
         newWindow.toFront();

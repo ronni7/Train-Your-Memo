@@ -1,5 +1,11 @@
 package controllers;
 
+import controllers.nonView.DIALOGTYPE;
+import controllers.nonView.Dialog;
+import controllers.view.Credits;
+import controllers.view.Highscore;
+import controllers.view.Newgame;
+import controllers.view.Options;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -104,7 +110,7 @@ public class Menu {
                     return;
             }
         }*/
-        controllers.Newgame newgameController = loader.getController();
+        Newgame newgameController = loader.getController();
 //        newgameController.setConfigurationManager(this.configurationManager);
 
         newgameController.setMainController(mainController);
@@ -124,7 +130,7 @@ public class Menu {
             return;
         }
 
-        controllers.Options optionsController = loader.getController();
+        Options optionsController = loader.getController();
 
         optionsController.setMainController(mainController);
         optionsController.setConfigurationManager(configurationManager);
@@ -162,7 +168,7 @@ public class Menu {
             return;
         }
 
-        controllers.Highscore highscoreController = loader.getController();
+        Highscore highscoreController = loader.getController();
         System.out.println(configurationManager!=null);
         highscoreController.setConfigurationManager(configurationManager);
 
@@ -239,7 +245,7 @@ public class Menu {
         }
 
 
-        controllers.Credits creditsController = loader.getController();
+        Credits creditsController = loader.getController();
         creditsController.setMainController(mainController);
 
         mainController.setScreen(pane);
@@ -252,5 +258,6 @@ public class Menu {
         dialog.showDialog();
         if (dialog.getResult())
             System.exit(1);
+
     }
 }

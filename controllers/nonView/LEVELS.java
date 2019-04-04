@@ -1,4 +1,4 @@
-package controllers;
+package controllers.nonView;
 
 public enum LEVELS {
     Beginner,

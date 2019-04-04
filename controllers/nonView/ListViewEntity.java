@@ -1,4 +1,4 @@
-package controllers;
+package controllers.nonView;
 
 public class ListViewEntity {
     private String nickname;
