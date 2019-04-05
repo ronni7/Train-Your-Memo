@@ -45,14 +45,11 @@ public class Highscore {
     private ObservableList list = FXCollections.observableArrayList();
     private ArrayList<ListViewEntity> listViewData = new ArrayList<>();
 
-    // TODO: 2019-02-28  clarify configuration manager, make pack label visible cause it's gone right now (?!)
+    // TODO: 2019-03-07   is this needed ?
     public ConfigurationManager getConfigurationManager() {
         return configurationManager;
     }
-
     public void setConfigurationManager(ConfigurationManager configurationManager) {
-        // TODO: 2019-03-07   is this needed ?
-
     }
 
     private ConfigurationManager configurationManager = new ConfigurationManager();
@@ -75,18 +72,18 @@ public class Highscore {
         try {
             level.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 try {
-                    this.updateTable();
+                  updateTable();
                 } catch (IOException e) {
                     Back();
-                    //        System.out.println("THIS SUCKS");
+
                 }
-                this.updateBestTime();
+                updateBestTime();
             });
-            this.updateTable();
+            updateTable();
         } catch (IOException e) {
-            //    System.out.println("THIS SUCKS MORE EVEN");
+
             Back();
-          //  e.printStackTrace();
+
         }
     }
 
@@ -95,28 +92,20 @@ public class Highscore {
             configurationManager.loadParameters();
         } catch (IOException e) {
             Back();
-          //  e.printStackTrace();
         }
         BestScoreEntity bestScoreEntity = null;
         try {
-            bestScoreEntity = DataExchangeManager.getTopPlayerScoreAtLevel(configurationManager.getParameter("Login"), configurationManager.getParameter("Key"), level.getValue());
-
+            bestScoreEntity = DataExchangeManager.getTopPlayerScoreAtLevel(configurationManager.getParameter("Key"), level.getValue());
         } catch (NullPointerException e) {
-            //  System.out.println("THIS SUCKS AS HELL");
             bestScoreEntity = new BestScoreEntity("00:00:00", "");
-         /*   Dialog dialog = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), packLabel.getScene().getWindow(), DIALOGTYPE.Information);
-            dialog.setTitle("Error");
-            dialog.setHeaderText("An error occurred while loading data from server. Please check your connection");
-            dialog.showDialog();*/
             Back();
         } catch (IOException e) {
             bestScoreEntity = new BestScoreEntity("00:00:00", "");
-            //  System.out.println("THIS SUCKS AS HELL 3");
+
             Back();
-            //   e.printStackTrace();
+
         }
-        this.bestTime.setText(bestScoreEntity.getScore());
-//        packLabel.setText(bestScoreEntity.getPack());
+        bestTime.setText(bestScoreEntity.getScore());
     }
 
     public void setMainController(MainController mainController) {
@@ -127,21 +116,20 @@ public class Highscore {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         double width = graphicsDevice.getDisplayMode().getWidth();
         double height = graphicsDevice.getDisplayMode().getHeight();
-
         paneOfTheHighscores.setPrefSize(width, height);
-        this.selectionVBox.setPrefSize(0.2 * width, 0.7 * height);
-        this.selectionVBox.setLayoutX(0.10 * width);
-        this.selectionVBox.setLayoutY(0.15 * height);
-        this.selectionVBox.setAlignment(Pos.CENTER);
-        this.selectionVBox.setSpacing(0.05 * selectionVBox.getPrefHeight());
-        this.scoreVBox.setPrefSize(0.35 * width, 0.9 * height);
-        this.scoreVBox.setLayoutX(0.325 * width);
-        this.scoreVBox.setLayoutY(0.05 * height);
-        this.scoreVBox.setSpacing(0.025 * scoreVBox.getPrefHeight());
-        this.bestScore.setPrefWidth(scoreVBox.getPrefWidth());
-        this.bestScore.setWrapText(true);
-        this.bestTime.setWrapText(true);
-        this.levelLabel.setWrapText(true);
+        selectionVBox.setPrefSize(0.2 * width, 0.7 * height);
+        selectionVBox.setLayoutX(0.10 * width);
+        selectionVBox.setLayoutY(0.15 * height);
+        selectionVBox.setAlignment(Pos.CENTER);
+        selectionVBox.setSpacing(0.05 * selectionVBox.getPrefHeight());
+        scoreVBox.setPrefSize(0.35 * width, 0.9 * height);
+        scoreVBox.setLayoutX(0.325 * width);
+        scoreVBox.setLayoutY(0.05 * height);
+        scoreVBox.setSpacing(0.025 * scoreVBox.getPrefHeight());
+        bestScore.setPrefWidth(scoreVBox.getPrefWidth());
+        bestScore.setWrapText(true);
+        bestTime.setWrapText(true);
+        levelLabel.setWrapText(true);
     }
 
     public void loadData() throws NullPointerException {
@@ -162,7 +150,7 @@ public class Highscore {
         ArrayList<ListViewEntity> listViewEntities;
         configurationManager.loadParameters();
         try {
-            listViewEntities = DataExchangeManager.loadHighscoreTable(configurationManager.getParameter("Login"), configurationManager.getParameter("Key"), level.getValue());
+            listViewEntities = DataExchangeManager.loadHighscoreTable(configurationManager.getParameter("Key"), level.getValue());
         } catch (JSONException e) {
             listViewEntities = new ArrayList<>();
         }

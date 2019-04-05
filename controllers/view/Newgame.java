@@ -5,7 +5,6 @@ import controllers.nonView.*;
 import controllers.nonView.Dialog;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Window;
-
 import java.awt.*;
 import java.io.*;
 import java.sql.Time;
@@ -86,7 +84,7 @@ public class Newgame {
             }*/
             case 32: {
                 this.imageHeight = grid.getPrefHeight() / 8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
-                    break;
+                break;
             }
             case 48: {
 
@@ -218,24 +216,22 @@ public class Newgame {
                         Platform.runLater(new Thread(() -> {
                             if (showDialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Saving))
                                 try {
-                                    DataExchangeManager.insertNewScore(
-                                            configurationManager.getParameter("Login"), Time.valueOf("00:" + timeValue.getText()), pack, configurationManager.getParameter("Key"), this.level);
-                                    Dialog dialog = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
-                                    dialog.setTitle("Succes");
-                                    dialog.setHeaderText("Your result has been successfully signed!");
-                                    dialog.showDialog();
-
+                                    if (DataExchangeManager.insertNewScore(Time.valueOf("00:" + timeValue.getText()), pack, configurationManager.getParameter("Key"), this.level)){
+                                        Dialog dialog = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
+                                        dialog.setTitle("Success");
+                                        dialog.setHeaderText("Your result has been successfully signed!");
+                                        dialog.showDialog();
+                                    }
                                     Back();
                                 } catch (IOException e) {
-                                    Dialog dialogx = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
-                                    dialogx.setTitle("Error");
-                                    dialogx.setHeaderText("An error occurred while connecting server. Please check your connection");
-                                    dialogx.showDialog();
+                                    Dialog errodDialog = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
+                                    errodDialog.setTitle("Error");
+                                    errodDialog.setHeaderText("An error occurred while connecting server. Please check your connection");
+                                    errodDialog.showDialog();
                                     Back();
                                 }
                             else Back();
                         }));
-                        //  lock.unlock();
                     }
                     lock.unlock();
                     grid.setMouseTransparent(false);

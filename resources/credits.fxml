@@ -15,8 +15,8 @@
                   <DropShadow color="#18b523" />
                </effect>
             </Button>
-            <Label fx:id="additionalLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="233.0" text="Version 1.42 released 01-02-2019" textAlignment="CENTER" />
-            <Label fx:id="infoLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutY="49.0" text="© Copyright Marcin Augustynowicz 2018" textAlignment="CENTER" />
+            <Label fx:id="additionalLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="233.0" text="Version 1.42 released 06-04-2019" textAlignment="CENTER" />
+            <Label fx:id="infoLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutY="49.0" text="© Copyright Marcin Augustynowicz 2018-2019" textAlignment="CENTER" />
 
          </children>
       </Pane>

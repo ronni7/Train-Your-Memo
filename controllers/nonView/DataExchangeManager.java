@@ -1,12 +1,8 @@
 package controllers.nonView;
 
-import controllers.nonView.BestScoreEntity;
-import controllers.nonView.LEVELS;
-import controllers.nonView.ListViewEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,16 +10,15 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.Time;
 import java.util.ArrayList;
-
 public class DataExchangeManager {
-    public static JSONArray jsonArray;
-    public static JSONObject jsonObject;
+    private static JSONArray jsonArray;
+    private static JSONObject jsonObject;
 
-    public static BestScoreEntity getTopPlayerScoreAtLevel(String login, String validationKey, String level) throws NullPointerException, IOException {
+    public static BestScoreEntity getTopPlayerScoreAtLevel(String validationKey, String level) throws NullPointerException, IOException {
         BestScoreEntity bestScoreEntity;
         HttpURLConnection con;
         URL url;
-        url = new URL("http://localhost:8080/demo/bestScoreByLevel?login=" + login + "&validationKey=" + validationKey + "&level=" + level);
+        url = new URL("http://localhost:8080/demo/bestScoreByLevel?validationKey=" + validationKey + "&level=" + level);
         con = (HttpURLConnection) url.openConnection();
         con.setRequestProperty("Content-Type", "application/json");
         con.setRequestMethod("GET");
@@ -52,10 +47,10 @@ public class DataExchangeManager {
         return response.toString();
     }
 
-    public static boolean insertNewScore(String login, Time score, String pack, String validationKey, LEVELS level) throws NullPointerException, IOException {
+    public static boolean insertNewScore(Time score, String pack, String validationKey, LEVELS level) throws NullPointerException, IOException {
         HttpURLConnection con = null;
         URL url = null;
-        url = new URL("http://localhost:8080/demo/add?login=" + login + "&score=" + score + "&pack=" + pack + "&validationKey=" + validationKey + "&level=" + level);
+        url = new URL("http://localhost:8080/demo/add?score=" + score + "&pack=" + pack + "&validationKey=" + validationKey + "&level=" + level);
         con = (HttpURLConnection) url.openConnection();
         //System.out.println(url);
         con.setRequestProperty("Content-Type", "application/json");
@@ -63,12 +58,12 @@ public class DataExchangeManager {
         return Boolean.valueOf(parseResponse(con));
     }
 
-    public static ArrayList<ListViewEntity> loadHighscoreTable(String login, String validationKey, String selectedLevel) throws NullPointerException, IOException, JSONException {
+    public static ArrayList<ListViewEntity> loadHighscoreTable( String validationKey, String selectedLevel) throws NullPointerException, IOException, JSONException {
         HttpURLConnection con = null;
         URL url = null;
         ArrayList<ListViewEntity> list = new ArrayList<>();
         //   try {
-        url = new URL("http://localhost:8080/demo/all?login=" + login + "&level=" + selectedLevel + "&validationKey=" + validationKey);
+        url = new URL("http://localhost:8080/demo/all?level=" + selectedLevel + "&validationKey=" + validationKey);
         //   } catch (
         //           MalformedURLException e) {
         //   System.out.println("I said that 1");
@@ -97,8 +92,6 @@ public class DataExchangeManager {
             for (int i = 0; i < jsonArray.length(); i++) {
                 //  System.out.println(jsonArray.getJSONObject(i).toString());
                 jsonObject = jsonArray.getJSONObject(i);
-
-// TODO: 2019-02-08 zastanów sie nad liczbami porzadkowymi... 
                 ListViewEntity lve = new ListViewEntity(i + 1 + ". " +
                         jsonObject.getString("nickname"),
                         jsonObject.getString("score"),
