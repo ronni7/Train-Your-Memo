@@ -1,0 +1,191 @@
+@font-face {
+    -fx-font-family: 'SedgwickAveDisplay-Regular';
+    src: url("/fonts/SedgwickAveDisplay-Regular.ttf");
+}
+
+#Title {
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-size: 105;
+
+    -fx-text-fill: #3aab2c;
+}
+
+.label {
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-size: 25;
+    -fx-text-fill: #3aab2c;
+
+}
+
+.button {
+    -fx-min-height: 50px;
+    -fx-min-width: 100px;
+    -fx-background-color: linear-gradient(#31da3d, #3aab2c),
+    radial-gradient(center 65% -25%, radius 220%, #52ff2e 45%, #23da3b 30%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 0, 0.0, 0, 5);
+
+    -fx-font-family: "Sedgwick Ave Display";
+    -fx-font-size: 25;
+    -fx-text-fill: #1e21bb;
+}
+
+
+#paneOfOptions .toggle-button {
+
+
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-size: 25;
+    -fx-text-fill: #3aab2c;
+
+    -fx-background-size: 100% 100%;
+    -fx-background-color: linear-gradient(#1e36da, #2329ab),
+    radial-gradient(center 90% -15%, radius 120%, #2b2aff 45%, #1216da 30%);
+    -fx-background-radius: 4, 7;
+    -fx-background-insets: 0, 1;
+
+
+}
+
+
+
+#paneOfOptions .toggle-button#selected {
+    -fx-background-size: 100% 100%;
+    -fx-background-color: linear-gradient(#1e36da, #2329ab),
+    radial-gradient(center 90% -15%, radius 120%, #2b2aff 45%, #1216da 30%);
+    -fx-background-radius: 4, 7;
+    -fx-background-insets: 0, 1;
+
+}
+
+
+.check-box {
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-size: 25;
+    -fx-text-fill: #3aab2c;
+    /*-fx-background-size: 100% 100%;
+    -fx-background-color: linear-gradient(#1e36da, #2329ab),
+    radial-gradient(center 90% -15%, radius 120%, #2b2aff 45%, #1216da 30%);
+    -fx-background-radius: 4, 7;
+    -fx-background-insets: 0, 1;*/
+    -fx-background-color: linear-gradient(#1e36da, #2329ab),
+    radial-gradient(center 90% -15%, radius 120%, #2b2aff 45%, #1216da 30%);
+}
+.check-box .box
+{
+    -fx-background-color: transparent;
+}
+.check-box:selected .mark
+{
+    -fx-background-color: transparent;
+    -fx-mark-color: #fff400;
+}
+
+
+.choice-box {
+    -fx-background-size: 100% 100%;
+    -fx-background-color: linear-gradient(#1e36da, #2329ab),
+    radial-gradient(center 90% -15%, radius 120%, #2b2aff 45%, #1216da 30%);
+    -fx-background-radius: 4, 7;
+    -fx-background-insets: 0, 1;
+    -fx-mark-color: #fff400;
+
+
+}
+
+.choice-box .context-menu {
+    -fx-background-color: linear-gradient(#1e36da, #2329ab),
+    radial-gradient(center 90% -15%, radius 120%, #2b2aff 45%, #1216da 30%);
+    -fx-background-radius: 4, 7;
+    -fx-background-insets: 0, 1;
+}
+.choice-box .menu-item:focused{-fx-background-color: #da5c20;
+}
+.choice-box .menu-item:selected {
+    -fx-background-color: #fff400;
+}
+
+.list-view#table
+{
+
+    -fx-background-color:  skyblue   ;
+}
+.list-view .list-cell:odd
+{
+    -fx-background-color: rgba(0, 218, 218, 0.87) ;
+}
+.list-view .list-cell:even
+{
+   -fx-background-color: skyblue  ;
+}
+.list-view .list-cell
+{
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-weight: bold;
+    -fx-font-size: 25;
+    -fx-text-fill: #3aab2c;
+    -fx-alignment: center;
+}
+.list-view .scroll-bar
+{
+    -fx-background-color: crimson;
+
+}
+
+.list-view .scroll-bar:horizontal .thumb
+{
+    -fx-border-color: derive(purple, 80%);
+
+
+}
+.list-view .scroll-bar:vertical .thumb
+{
+    -fx-background-color: derive(purple, 80%);
+    -fx-background-radius: 5em;
+
+
+}
+#bestScore
+{
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-weight: bold;
+    -fx-font-size: 45;
+    -fx-text-fill: #3aab2c;
+    -fx-alignment: center;
+}
+.text-field {
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-weight: bold;
+
+    -fx-background-color: linear-gradient(rgba(160, 56, 223, 0.84), rgba(216, 44, 198, 0.65)),
+    radial-gradient(center 77% -31%, radius 138%, #fa35ff 85%, rgba(184, 31, 203, 0.82) 67%);
+    -fx-text-alignment: center;
+    -fx-min-width: 100%;
+    -fx-animated: true;
+    -fx-text-fill: #1e21bb;
+    -fx-font-size: 25;
+    -fx-alignment: center;
+
+}
+#websiteHyperlink
+{
+    -fx-font-family: 'Sedgwick Ave Display';
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-min-width: 100%;
+    -fx-text-fill: #acaabb;
+    -fx-font-size: 25;
+    -fx-border-color: transparent;
+
+}
+#dialogPane
+{
+    -fx-border-color: dimgrey;
+    -fx-border-width: 5px;
+}
+
+
+
+
+
