@@ -1,4 +1,4 @@
-package controllers.dataFlowHandler.entityModels;
+package dataFlowHandler.entityModels;
 
 public interface ListViewMapped {
      String getNickname();

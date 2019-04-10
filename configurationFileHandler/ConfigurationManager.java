@@ -6,27 +6,23 @@ import java.util.*;
 public class ConfigurationManager {
     private HashMap<String, String> parameters;
     private List<String> packs;
-
     public List<String> getPacks() {
         return packs;
     }
 
     public ConfigurationManager() {
-        parameters = new HashMap<>();
-        packs = new ArrayList<>();
+       this.parameters = new HashMap<>();
+        this.packs = new ArrayList<>();
     }
 
     public void loadParameters() throws IOException, NullPointerException {
         File dir = new File("src/images/");
-        System.out.println("dir.getAbsolutePath() = " + dir.getAbsolutePath());
         packs = Arrays.asList(dir.list());
         ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(
                         new FileInputStream("src/config.dat")));
         try {
-
             parameters = (HashMap<String, String>) in.readObject();
-
             in.close();
         } catch (ClassNotFoundException e) {
             throw new IOException("file is damaged"); //yeah, this is stupid but its true, since there is a JVM error or sth
@@ -37,7 +33,6 @@ public class ConfigurationManager {
         for (Map.Entry<String, String> entry : parameters.entrySet())
             if (entry.getKey().equals("Key"))
                 entry.setValue(key);
-
         saveAll(parameters);
     }
 
@@ -46,19 +41,27 @@ public class ConfigurationManager {
         ObjectOutputStream out = new ObjectOutputStream(
                 new BufferedOutputStream(
                         new FileOutputStream("src/config.dat")));
-        // System.out.println("map.get(\"Key\") = " + map.get("Key")); //always be sure to save your key somewhere before config reset, decompiling config.dat will cause it unreadable
-        //key=YDDHO3
-        // map.put("Key","000000"); //for testing key registration, edit reset key in config.dat and restart
+     /* *********NOTE*********
+         always be sure to save your login & key somewhere before config reset,
+          decompiling config.dat will make it unreadable !
+         System.out.println("map.get("Key") = " + map.get("Key"));
+         System.out.println("map.get("Login") = " + map.get("Login"));
+         for tests:
+         login=Jenny12
+         key=YDDHO3
+         for testing key registration, the following line will edit key in config.dat
+         map.put("Key","000000"); uncomment this and save options in game
+        restart application for effect
+        */
         out.writeObject(map);
         out.close();
     }
 
 
     public String getBackgroundPath() {
-        if (this.parameters.get("Theme").equals("dark"))
+        if (parameters.get("Theme").equals("dark"))
             return "/background dark.jpeg";
         else return "/background light.jpeg";
-
     }
 
 
@@ -68,9 +71,7 @@ public class ConfigurationManager {
 
 
     public void saveLogin(String login) throws IOException {
-        //i am pretty sure that i can stream() this
         parameters.entrySet().stream().filter(entry -> entry.getKey().equals("Login")).findFirst().get().setValue(login);
-
         saveAll(parameters);
     }
 

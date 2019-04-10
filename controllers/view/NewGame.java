@@ -1,8 +1,13 @@
 package controllers.view;
 
-import controllers.*;
-import controllers.nonView.*;
-import controllers.nonView.Dialog;
+import configurationFileHandler.ConfigurationManager;
+import dataFlowHandler.DataExchangeManager;
+import utilities.enums.DIALOGTYPE;
+import utilities.enums.LEVELS;
+import gameBoard.Board;
+import gameBoard.BoardNode;
+import customDialogs.Dialog;
+import utilities.Clock;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -13,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Window;
+
 import java.awt.*;
 import java.io.*;
 import java.sql.Time;
@@ -21,7 +27,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Newgame {
+public class NewGame {
 
     @FXML
     public Label timeLabel;
@@ -41,15 +47,15 @@ public class Newgame {
     private HBox TimeBox;
 
     private MainController mainController;
-    private Clock clock;
-    private Board gameBoard;
+    private final Clock clock;
+    private final Board gameBoard;
     private ConfigurationManager configurationManager;
     private double imageHeight;
     private String pack;
     private LEVELS level;
     private int clickedButtonsCounter;
 
-    public Newgame() {
+    public NewGame() {
         gameBoard = new Board(new int[2], new ToggleButton[2]);
         clock = new Clock();
         configurationManager = new ConfigurationManager();
@@ -72,50 +78,44 @@ public class Newgame {
 
             }
         }, 1000, 1000);
-        AdjustElementsSizes();
+        adjustElementsSizes();
         level = LEVELS.valueOf(configurationManager.getParameter("Level"));
         pack = configurationManager.getParameter("Pack");
         gameBoard.setSize(Integer.parseInt(configurationManager.getParameter("Size")));
 
         switch (gameBoard.getSize()) {
-            case 16: /*{
-                this.imageHeight = grid.getPrefHeight() / 8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
-                            break;
-            }*/
+            case 16:
             case 32: {
-                this.imageHeight = grid.getPrefHeight() / 8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
+               imageHeight = grid.getPrefHeight() / 8; //for 4 images in a column make 1/8 image height so they wont affect top & bottom panels
                 break;
             }
             case 48: {
 
-                this.imageHeight = grid.getPrefHeight() / 9; //for 6 images in a column make 1/9 image height so they wont affect top & bottom panels
+                imageHeight = grid.getPrefHeight() / 9; //for 6 images in a column make 1/9 image height so they wont affect top & bottom panels
 
                 break;
             }
             case 64: {
 
-                this.imageHeight = grid.getPrefHeight() / 10;  //for 8 images in a column make 1/10 image height so they wont affect top & bottom panels
+               imageHeight = grid.getPrefHeight() / 10;  //for 8 images in a column make 1/10 image height so they wont affect top & bottom panels
                 break;
             }
             default: {
                 break;
             }
         }
-        double imagewidth = this.imageHeight * 1.5;
+        double imageWidth = imageHeight * 1.5;
         gameBoard.setBoardWidth(Integer.parseInt(configurationManager.getParameter("Width")));
         gameBoard.calculateBoardHeight();
-        Image unselected = new Image(this.getClass().getResourceAsStream("/cover.jpg"), imagewidth, imageHeight, true, false);
-
+        Image unselected = new Image(this.getClass().getResourceAsStream("/cover.jpg"), imageWidth, imageHeight, true, false);
         File dir = new File("./src/images/" + pack);
-        File[] filelist;
-        filelist = dir.listFiles();
+        File[] fileList;
+        fileList = dir.listFiles();
         int length = 0;
         try {
-            if (filelist != null) {
-                length = filelist.length;
-            }/* else {
-                Back();
-            }*/
+            if (fileList != null) {
+                length = fileList.length;
+            }
         } catch (NullPointerException e) {
             Back();
         }
@@ -124,34 +124,24 @@ public class Newgame {
         for (int i = 0; i < gameBoard.getSize() / 2; i++) {
             id = r.nextInt(length);
 
-            while (filelist[id] == null) id = r.nextInt(length);
-            //  //System.out.println("I FOUND DOUBLED! and replaced it with: " + id);
-            Image temp = new Image(filelist[id].toURI().toString(), imagewidth, imageHeight, false, false);
-            filelist[id] = null;
+            while (fileList[id] == null) id = r.nextInt(length);
+
+            Image temp = new Image(fileList[id].toURI().toString(), imageWidth, imageHeight, false, false);
+            fileList[id] = null;
 
             for (int j = 0; j < 2; j++) {
                 ImageView ims = new ImageView(temp);
                 ToggleButton toggle = new ToggleButton();
                 ims.imageProperty().bind(Bindings.when(toggle.selectedProperty()).then(temp).otherwise(unselected));
                 ims.setFitHeight(imageHeight);
-                ims.setFitWidth(imagewidth);
-                //  System.out.println("ims.getFitHeight() = " + ims.getFitHeight());
-                //System.out.println("ims.getFitWidth() = " + ims.getFitWidth());
+                ims.setFitWidth(imageWidth);
                 toggle.setGraphic(ims);
-
                 toggle.setOnAction(event -> {
                     ToggleButton temporary = (ToggleButton) event.getSource();
                     temporary.setSelected(true);
                     int clickedID = gameBoard.GetIdFromToggle(temporary);
-                    // matchedId[clickedButtonsCounter] = clickedID;
                     gameBoard.getMatchedId()[clickedButtonsCounter] = clickedID;
-
                     gameBoard.getButtonsMatched()[clickedButtonsCounter++] = temporary;
-                    //System.out.println("Source: " + temporary.toString() +
-                    //   " clickedID:  " + clickedID +
-                    // "matchedID= " + matchedId[clickedButtonsCounter - 1] +
-                    //" ButtonsMatched: " + buttonsMatched[clickedButtonsCounter - 1] +
-                    //"clickedButtonsCounter: " + (clickedButtonsCounter - 1));
                     isMatched(temporary);
                 });
                 BoardNode boardNode = new BoardNode(toggle, id);
@@ -159,14 +149,13 @@ public class Newgame {
             }
         }
         Collections.shuffle(gameBoard.getList());
-        //  System.out.println(grid.getWidth()+"act- pref:"+grid.getPrefWidth()+"act"+grid.getHeight()+"pref"+grid.getPrefHeight()+"Hgap"+grid.getHgap()+"Vgap"+grid.getVgap());
         int elements = gameBoard.getList().size() - 1;
         for (int j = 0; j < gameBoard.getBoardHeight(); j++)
             for (int k = 0; k < gameBoard.getBoardWidth(); k++)
                 grid.add(gameBoard.getList().get(elements--).getToggle(), k, j);
     }
 
-    private void AdjustElementsSizes() {
+    private void adjustElementsSizes() {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         double width = graphicsDevice.getDisplayMode().getWidth();
         double height = graphicsDevice.getDisplayMode().getHeight();
@@ -200,7 +189,7 @@ public class Newgame {
     }
 
     private void isMatched(ToggleButton temporary) {
-        //lock and unlock with reenrtrant lock...lock
+        //lock and unlock with reentrant lock...lock
         ReentrantLock lock = new ReentrantLock();
         lock.lock();
         if (clickedButtonsCounter == 2) {
@@ -216,7 +205,7 @@ public class Newgame {
                         Platform.runLater(new Thread(() -> {
                             if (showDialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Saving))
                                 try {
-                                    if (DataExchangeManager.insertNewScore(Time.valueOf("00:" + timeValue.getText()), pack, configurationManager.getParameter("Key"), this.level)){
+                                    if (DataExchangeManager.insertNewScore(Time.valueOf("00:" + timeValue.getText()), pack, configurationManager.getParameter("Key"), this.level)) {
                                         Dialog dialog = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
                                         dialog.setTitle("Success");
                                         dialog.setHeaderText("Your result has been successfully signed!");
@@ -224,10 +213,10 @@ public class Newgame {
                                     }
                                     Back();
                                 } catch (IOException e) {
-                                    Dialog errodDialog = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
-                                    errodDialog.setTitle("Error");
-                                    errodDialog.setHeaderText("An error occurred while connecting server. Please check your connection");
-                                    errodDialog.showDialog();
+                                    Dialog errorDialog = new Dialog(mainController.getBackgroundManager().getLoadedBackground(), paneOfTheGame.getScene().getWindow(), DIALOGTYPE.Information);
+                                    errorDialog.setTitle("Error");
+                                    errorDialog.setHeaderText("An error occurred while connecting server. Please check your connection");
+                                    errorDialog.showDialog();
                                     Back();
                                 }
                             else Back();
@@ -268,8 +257,5 @@ public class Newgame {
         return dialog.getResult();
     }
 
-    public void setConfigurationManager(ConfigurationManager configurationManager) {
-        this.configurationManager = configurationManager;
-    }
 }
 

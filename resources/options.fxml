@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 
-<AnchorPane prefHeight="633.0" prefWidth="746.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.view.Options">
+<AnchorPane prefHeight="633.0" prefWidth="746.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.view.Options">
    <children>
       <Pane fx:id="paneOfOptions" layoutY="4.0" prefHeight="640.0" prefWidth="758.0">
          <children>
@@ -36,7 +30,7 @@
             </HBox>
             <HBox fx:id="saveHBox" alignment="CENTER" layoutX="151.0" layoutY="474.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                <Button fx:id="save" mnemonicParsing="false" onAction="#ShowDialog" text="Save " />
+                <Button fx:id="save" mnemonicParsing="false" onAction="#showDialog" text="Save " />
                </children>
             </HBox>
             <HBox fx:id="mainMenuHBox" alignment="CENTER" layoutX="373.0" layoutY="474.0" prefHeight="100.0" prefWidth="200.0">

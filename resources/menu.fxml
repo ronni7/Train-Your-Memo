@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="menuGrid" alignment="center" hgap="20" prefHeight="400" prefWidth="600" stylesheets="@../style/style.css" vgap="15" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Menu">
+<GridPane fx:id="menuGrid" alignment="center" hgap="20" prefHeight="400" prefWidth="600" stylesheets="@style/style.css" vgap="15" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.view.Menu">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />

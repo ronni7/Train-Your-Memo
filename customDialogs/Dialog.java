@@ -1,7 +1,7 @@
-package controllers.customDialogs;
+package customDialogs;
 
-import controllers.utilities.enums.DIALOGTYPE;
-import controllers.dataFlowHandler.DataExchangeManager;
+import utilities.enums.DIALOGTYPE;
+import dataFlowHandler.DataExchangeManager;
 import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -90,9 +90,8 @@ public class Dialog {
             headerHBox.setPrefSize(pane.getPrefWidth(), titleHBox.getPrefHeight() * 4);
             buttonHBox.setLayoutY(0.6 * pane.getPrefHeight());
         }
-
-        titleHBox.setLayoutX(0);//may not be useful
-        titleHBox.setLayoutY(0);//may not be useful
+        titleHBox.setLayoutX(0);
+        titleHBox.setLayoutY(0);
         title.setAlignment(Pos.CENTER);
         title.setContentDisplay(ContentDisplay.CENTER);
         title.setTextAlignment(TextAlignment.CENTER);
@@ -121,10 +120,8 @@ public class Dialog {
                         Desktop.getDesktop().browse(new URI(hyperlink.getText()));
                     } catch (IOException e) {
                         ErrorDialog errorDialog=new ErrorDialog(background,parent, type);
-
                         errorDialog.showErrorDialog("Error", "An error occurred while opening browser.");
 
-                      //  e.printStackTrace();
                     } catch (URISyntaxException e) {
                         ErrorDialog errorDialog=new ErrorDialog(background,parent, type);
                         errorDialog.showErrorDialog("Error", "An URL error happened, web page you are trying to access is not available");
@@ -144,7 +141,6 @@ public class Dialog {
             textFlow.setId("websiteHyperlink");
             boxes.add(websiteHBox);
             HBox loginHBox = new HBox();
-
             HBox.setHgrow(loginHBox, Priority.ALWAYS);
             loginHBox.setPrefSize(pane.getPrefWidth() / 2, headerHBox.getPrefHeight() / 2);
             loginHBox.setLayoutX(0.25 * pane.getPrefWidth());
@@ -164,7 +160,6 @@ public class Dialog {
             accessKey.setPrefSize(accessKeyHBox.getPrefWidth(), accessKeyHBox.getPrefHeight());
             accessKey.setAlignment(Pos.CENTER);
             accessKeyHBox.getChildren().add(accessKey);
-
             boxes.add(accessKeyHBox);
         }
 
@@ -205,7 +200,7 @@ public class Dialog {
 
                 accessKey.setOnAction(event ->
                         {
-                            String text = accessKey.getText(); //event.getSource().getText(); is redundant
+                            String text = accessKey.getText();
                             if (text.length() > 6) {
                                 text = text.substring(0, 6);
                                 accessKey.setText(text);
@@ -217,7 +212,6 @@ public class Dialog {
                         }
                 );
                 Button ok = new Button("Validate");
-
                 ok.setOnAction(event -> {
 
                     try {
@@ -274,7 +268,6 @@ public class Dialog {
                 buttons.add(cancelButton);
                 adjustElementsSizes();
                 buildDialogWindow();
-
                 break;
             }
             default: {
@@ -297,12 +290,11 @@ public class Dialog {
         newWindow.setWidth(secondScene.getWidth());
         newWindow.setHeight(secondScene.getHeight());
         newWindow.setScene(secondScene);
-        newWindow.getScene().getStylesheets().add(this.getClass().getResource("/style/style.css").toExternalForm());
+        newWindow.getScene().getStylesheets().add(this.getClass().getResource("/resources/style/style.css").toExternalForm());
         newWindow.setResizable(false);
         newWindow.setAlwaysOnTop(true);
         newWindow.toFront();
         newWindow.initModality(Modality.WINDOW_MODAL);
-
         newWindow.initOwner(parent);
         newWindow.showAndWait();
         newWindow.close();

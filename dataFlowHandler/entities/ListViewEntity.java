@@ -1,6 +1,6 @@
-package controllers.dataFlowHandler.entities;
+package dataFlowHandler.entities;
 
-import controllers.dataFlowHandler.entityModels.ListViewMapped;
+import dataFlowHandler.entityModels.ListViewMapped;
 
 public class ListViewEntity implements ListViewMapped {
     private final String nickname;

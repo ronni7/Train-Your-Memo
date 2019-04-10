@@ -1,6 +1,6 @@
-package controllers.dataFlowHandler.entities;
+package dataFlowHandler.entities;
 
-import controllers.dataFlowHandler.entityModels.BestScore;
+import dataFlowHandler.entityModels.BestScore;
 
 public class BestScoreEntity implements BestScore {
     public BestScoreEntity(String score, String pack) {

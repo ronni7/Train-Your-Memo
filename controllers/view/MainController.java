@@ -1,6 +1,8 @@
-package controllers;
+package controllers.view;
 
 import audioHandler.AudioManager;
+import backgroundHandler.BackgroundManager;
+import configurationFileHandler.ConfigurationManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -17,7 +19,7 @@ public class MainController {
     private AudioManager audioManager;
     private BackgroundManager backgroundManager;
 
-private final ConfigurationManager configurationManager;
+    private final ConfigurationManager configurationManager;
 
     public MainController() {
         mainStackPane = new StackPane();
@@ -30,9 +32,7 @@ private final ConfigurationManager configurationManager;
 
     @FXML
     public void initialize() {
-
         loadMainScreen();
-
     }
 
     public void loadMainScreen() {
@@ -43,15 +43,15 @@ private final ConfigurationManager configurationManager;
             configurationManager.loadParameters();
 
         } catch (IOException e) {
-            Alert a=new Alert(Alert.AlertType.ERROR,"Error while loading configuration please check your files and restart or reinstall game",ButtonType.OK);
-                   a.setTitle("File error");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Error while loading configuration please check your files and restart or reinstall game", ButtonType.OK);
+            a.setTitle("File error");
             e.printStackTrace();
-                   a.showAndWait();
-                   System.exit(-1);
+            a.showAndWait();
+            System.exit(-1);
         }
         if (Boolean.valueOf(configurationManager.getParameter("Music"))) {
             if (this.audioManager == null)
-                audioManager = new AudioManager();
+                audioManager = new AudioManager();//start playing music
         } else {
             if (audioManager != null)
                 this.audioManager.stop();
@@ -67,26 +67,24 @@ private final ConfigurationManager configurationManager;
                 mainStackPane.setBackground(back);
 
         } catch (IOException e) {
-          //  System.out.println("YOu sucks");
-            Alert a=new Alert(Alert.AlertType.ERROR,"Error while loading configuration please check your files and restart or reinstall game",ButtonType.OK);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Error while loading configuration please check your files and restart or reinstall game", ButtonType.OK);
             a.setTitle("File loading error");
             a.showAndWait();
             System.exit(-1);
-        }
-        catch (NullPointerException e) {
-            Alert a=new Alert(Alert.AlertType.ERROR,"Error while loading configuration please check your files and restart or reinstall game",ButtonType.OK);
+        } catch (NullPointerException e) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Error while loading configuration please check your files and restart or reinstall game", ButtonType.OK);
             a.setTitle("File loading error");
             a.showAndWait();
             System.exit(-1);
         }
 
         Menu menuController = loader.getController();
-        //  menuController.setFontManager(fontManager);
         menuController.setConfigurationManager(configurationManager);
         menuController.setMainController(this);
 
         setScreen(pane);
     }
+
     public void setScreen(Pane pane) {
         mainStackPane.getChildren().clear();
         mainStackPane.getChildren().add(pane);

@@ -1,8 +1,8 @@
-package controllers.dataFlowHandler;
+package dataFlowHandler;
 
-import controllers.utilities.enums.LEVELS;
-import controllers.dataFlowHandler.entities.BestScoreEntity;
-import controllers.dataFlowHandler.entities.ListViewEntity;
+import utilities.enums.LEVELS;
+import dataFlowHandler.entities.BestScoreEntity;
+import dataFlowHandler.entities.ListViewEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +32,6 @@ public class DataExchangeManager {
             bestScoreEntity = new BestScoreEntity("00:00:00", "");
         }
 
-        //  System.out.println(bestScoreEntity);
         return bestScoreEntity;
     }
 
@@ -44,8 +43,7 @@ public class DataExchangeManager {
         while ((inputLine = in.readLine()) != null)
             response.append(inputLine);
         in.close();
-        // System.out.println("response  " +response.toString());
-        //  System.out.println(response.toString());
+
         return response.toString();
     }
 
@@ -54,7 +52,6 @@ public class DataExchangeManager {
         URL url = null;
         url = new URL("http://localhost:8080/demo/add?score=" + score + "&pack=" + pack + "&validationKey=" + validationKey + "&level=" + level);
         con = (HttpURLConnection) url.openConnection();
-        //System.out.println(url);
         con.setRequestProperty("Content-Type", "application/json");
         con.setRequestMethod("GET");
         return Boolean.valueOf(parseResponse(con));
@@ -64,31 +61,12 @@ public class DataExchangeManager {
         HttpURLConnection con = null;
         URL url = null;
         ArrayList<ListViewEntity> list = new ArrayList<>();
-        //   try {
         url = new URL("http://localhost:8080/demo/all?level=" + selectedLevel + "&validationKey=" + validationKey);
-        //   } catch (
-        //           MalformedURLException e) {
-        //   System.out.println("I said that 1");
-        //       throw e;
-        //   }
-        //   try {
         con = (HttpURLConnection) url.openConnection();
-        //   } catch (
-        //          IOException e) {
-        //   System.out.println("I said that 2");
-        //     throw e;
-        //  }
         con.setRequestProperty("Content-Type", "application/json");
-        //  try {
         con.setRequestMethod("GET");
-        //    } catch (ProtocolException e) {
-        //      System.out.println("I said that 3");
-        //     throw e;
-        //  }
 
         try {
-
-
             JSONArray jsonArray = new JSONArray(parseResponse(con));
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -101,32 +79,19 @@ public class DataExchangeManager {
                         jsonObject.getString("level")
 
                 );
-                //    System.out.println(lve);
                 list.add(lve);
-                /*System.out.println(jsonObject.getString("score"));
-                System.out.println(jsonObject.get("user") instanceof JSONObject);
-                System.out.println(jsonObject.get("user").toString());*/
             }
-           /*  jsonObject = new JSONObject(jsonstring.substring(1,jsonstring.length()-1));
-            System.out.println(jsonObject.toString());
-            System.out.println(jsonObject.get("id"));
-            System.out.println(jsonObject.getString("score"));
-            System.out.println(jsonObject.get("user") instanceof JSONObject);
-            System.out.println(jsonObject.get("user").toString());*/
+
         } catch (IOException e) {
-            //  e.printStackTrace();
             con.disconnect();
             throw e;
         } catch (JSONException e) {
-            //  e.printStackTrace();
             con.disconnect();
             throw e;
 
 
         }
         return list;
-        //  return jsonArray;
-        //return jsonObject;
     }
 
     public static boolean validateKey(String login, String validationKey) throws NullPointerException, IOException {
@@ -137,7 +102,5 @@ public class DataExchangeManager {
         con.setRequestProperty("Content-Type", "application/json");
         con.setRequestMethod("GET");
         return Boolean.valueOf(parseResponse(con));
-
-
     }
 }

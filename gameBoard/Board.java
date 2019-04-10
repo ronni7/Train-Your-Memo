@@ -1,4 +1,4 @@
-package controllers.gameBoard;
+package gameBoard;
 
 import javafx.scene.control.ToggleButton;
 
@@ -45,8 +45,6 @@ public class Board {
         return list;
     }
 
-
-
     public boolean win() {
         return counted == list.size();
     }
@@ -78,10 +76,10 @@ public class Board {
         for (BoardNode bn : list)
             if (id == bn.getId()) bn.getToggle().setSelected(false);
     }
-
     public void calculateBoardHeight() {
         boardHeight=getSize() / getBoardWidth();
     }
+
     public void clearTables() {
           for (int i = 0; i < 2; i++) {
               matchedId[i] = 0;

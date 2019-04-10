@@ -1,12 +1,9 @@
-package controllers;
+package controllers.view;
 
-import controllers.utilities.enums.DIALOGTYPE;
+import configurationFileHandler.ConfigurationManager;
+import utilities.enums.DIALOGTYPE;
 import customDialogs.Dialog;
 import customDialogs.ErrorDialog;
-import controllers.view.Credits;
-import controllers.view.Highscore;
-import controllers.view.Newgame;
-import controllers.view.Options;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -19,12 +16,12 @@ import java.io.IOException;
 public class Menu {
     @FXML
     public GridPane menuGrid;
-    private controllers.MainController mainController;
-    private controllers.ConfigurationManager configurationManager;
+    private MainController mainController;
+    private ConfigurationManager configurationManager;
 
 
 
-    public void setConfigurationManager(controllers.ConfigurationManager configurationManager) {
+    public void setConfigurationManager(ConfigurationManager configurationManager) {
 
         this.configurationManager = configurationManager;
         try {
@@ -37,7 +34,7 @@ public class Menu {
         }
     }
 
-    public void setMainController(controllers.MainController mainController) {
+    public void setMainController(MainController mainController) {
 
         this.mainController = mainController;
     }
@@ -45,7 +42,7 @@ public class Menu {
 
     @FXML
     public void newGame() {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/resources/newgame.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/resources/newGame.fxml"));
         Pane pane = null;
         try {
 
@@ -65,10 +62,8 @@ public class Menu {
 
         }
 
-        Newgame newgameController = loader.getController();
-
-
-        newgameController.setMainController(mainController);
+        NewGame newGameController = loader.getController();
+        newGameController.setMainController(mainController);
         mainController.setScreen(pane);
     }
 
@@ -82,13 +77,10 @@ public class Menu {
 
         } catch (IOException e) {
             ErrorDialog errorDialog=new ErrorDialog(mainController.getBackgroundManager().getLoadedBackground(), menuGrid.getScene().getWindow(), DIALOGTYPE.Information);
-
             errorDialog.showErrorDialog("Error", "An error occurred while loading game files . Please check your files and try again or reinstall game");
             return;
         }
-
         Options optionsController = loader.getController();
-
         optionsController.setMainController(mainController);
         optionsController.setConfigurationManager(configurationManager);
         optionsController.loadData();
@@ -104,8 +96,6 @@ public class Menu {
 
         } catch (IOException e) {
             ErrorDialog errorDialog=new ErrorDialog(mainController.getBackgroundManager().getLoadedBackground(), menuGrid.getScene().getWindow(), DIALOGTYPE.Information);
-
-
             errorDialog.showErrorDialog("Error", "An error occurred while loading data from server. Please check your connection");
             return;
         } catch (NullPointerException e) {
@@ -115,7 +105,6 @@ public class Menu {
         }
 
         Highscore highscoreController = loader.getController();
-
         highscoreController.setMainController(mainController);
         try {
             highscoreController.loadData();
@@ -125,7 +114,6 @@ public class Menu {
             return;
 
         }
-
         mainController.setScreen(pane);
     }
 
@@ -141,7 +129,6 @@ public class Menu {
            errorDialog.showErrorDialog("Error", "An error occurred while loading screen. Please check your files or reinstall game");
 
         }
-
         Credits creditsController = loader.getController();
         creditsController.setMainController(mainController);
         mainController.setScreen(pane);
@@ -154,6 +141,5 @@ public class Menu {
         dialog.showDialog();
         if (dialog.getResult())
             System.exit(1);
-
     }
 }

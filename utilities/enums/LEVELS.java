@@ -1,4 +1,4 @@
-package controllers.utilities.enums;
+package utilities.enums;
 
 public enum LEVELS {
     Beginner,

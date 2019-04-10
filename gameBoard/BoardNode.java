@@ -1,4 +1,4 @@
-package controllers.gameBoard;
+package gameBoard;
 
 import javafx.scene.control.ToggleButton;
 
@@ -11,11 +11,9 @@ public class BoardNode {
         this.id = id;
     }
 
-
     public ToggleButton getToggle() {
         return toggle;
     }
-
     public int getId() {
         return id;
     }

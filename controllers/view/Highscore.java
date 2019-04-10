@@ -1,9 +1,9 @@
 package controllers.view;
 
-import controllers.*;
-import controllers.nonView.BestScoreEntity;
-import controllers.nonView.DataExchangeManager;
-import controllers.nonView.ListViewEntity;
+import configurationFileHandler.ConfigurationManager;
+import dataFlowHandler.entities.BestScoreEntity;
+import dataFlowHandler.DataExchangeManager;
+import dataFlowHandler.entities.ListViewEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,13 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
 import org.json.JSONException;
-
-
 import java.awt.*;
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 
@@ -39,20 +35,11 @@ public class Highscore {
     private ChoiceBox<String> level;
     @FXML
     private Label bestScore;
-    @FXML
-    private Label packLabel;
+
     private MainController mainController;
-    private ObservableList list = FXCollections.observableArrayList();
-    private ArrayList<ListViewEntity> listViewData = new ArrayList<>();
-
-    // TODO: 2019-03-07   is this needed ?
-    public ConfigurationManager getConfigurationManager() {
-        return configurationManager;
-    }
-    public void setConfigurationManager(ConfigurationManager configurationManager) {
-    }
-
-    private ConfigurationManager configurationManager = new ConfigurationManager();
+    private final ObservableList list = FXCollections.observableArrayList();
+    private final ArrayList<ListViewEntity> listViewData = new ArrayList<>();
+    private final ConfigurationManager configurationManager = new ConfigurationManager();
 
     @FXML
     public void Back() {
@@ -72,18 +59,19 @@ public class Highscore {
         try {
             level.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 try {
+                    //pulling data from REST on changing selected item from level selection comboBox
                   updateTable();
                 } catch (IOException e) {
                     Back();
 
                 }
+                //pulling data from REST on changing selected item from level selection comboBox
                 updateBestTime();
             });
+            //pulling data from REST on initializing controller (not on  selected item change)
             updateTable();
         } catch (IOException e) {
-
             Back();
-
         }
     }
 
@@ -112,7 +100,7 @@ public class Highscore {
         this.mainController = mainController;
     }
 
-    private void AdjustElementsSizes() {
+    private void adjustElementsSizes() {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         double width = graphicsDevice.getDisplayMode().getWidth();
         double height = graphicsDevice.getDisplayMode().getHeight();
@@ -139,14 +127,15 @@ public class Highscore {
         } catch (IOException e) {
             Back();
         }
+        //pulling data from REST
         updateBestTime();
-        AdjustElementsSizes();
+        adjustElementsSizes();
 
 
     }
 
 
-    public void updateTable() throws NullPointerException, IOException {
+    private void updateTable() throws NullPointerException, IOException {
         ArrayList<ListViewEntity> listViewEntities;
         configurationManager.loadParameters();
         try {

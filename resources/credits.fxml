@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400" prefWidth="600" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.view.Credits">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400" prefWidth="600" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.view.Credits">
          <children>
-            <Button fx:id="exitButton" layoutY="469.0" mnemonicParsing="false" onAction="#Back" stylesheets="@../style/style.css" text="Back to menu" textAlignment="CENTER">
+            <Button fx:id="exitButton" layoutY="469.0" mnemonicParsing="false" onAction="#Back" stylesheets="@style/style.css" text="Back to menu" textAlignment="CENTER">
                <effect>
                   <DropShadow color="#18b523" />
                </effect>
