@@ -22,13 +22,13 @@ public class Application {
    /* public CommandLineRunner demo(UserRepository repository,ScoresRepository scoresRepository) {
         return (args) -> {
             // save a couple of Users
-            repository.save(new User("Jack","Lebowski","Jackie","AX7KXD"));
+            repository.save(new User("Jack","Lebowski","Jackie","A7XKXD"));
             repository.save(new User("Mia","Price","Miami","DX4XS1"));
             repository.save(new User("Chloe","McCully","Indigo","FH67DH"));
             repository.save(new User("Steven","Kowalsky","Destroyer","78SDLO"));
             repository.save(new User("John","Stone","Wrapper","HSD72K"));
             scoresRepository.save(new Scores(new SimpleDateFormat("mm:ss").parse("00:37"),"Hackathon",LEVELS.Average,1,repository.findByValidationKey("AX7KXD")));
-            scoresRepository.save(new Scores(new SimpleDateFormat("mm:ss").parse("00:51"),"Hackathon",LEVELS.Average,1,repository.findByValidationKey("AX7KXD")));
+            scoresRepository.save(new Scores(new SimpleDateFormat("mm:ss").parse("00:51"),"NationalFlags",LEVELS.Average,1,repository.findByValidationKey("AX7KXD")));
             scoresRepository.save(new Scores(new SimpleDateFormat("mm:ss").parse("00:27"),"Hackathon",LEVELS.Average,1,repository.findByValidationKey("AX7KXD")));
             scoresRepository.save(new Scores(new SimpleDateFormat("mm:ss").parse("00:42"),"Hackathon",LEVELS.Beginner,5,repository.findByValidationKey("HSD72K")));
             scoresRepository.save(new Scores(new SimpleDateFormat("mm:ss").parse("00:57"),"Hackathon",LEVELS.Average,5,repository.findByValidationKey("HSD72K")));

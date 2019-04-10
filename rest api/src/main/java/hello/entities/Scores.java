@@ -14,14 +14,10 @@ public class Scores implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private Integer userID;
     @Temporal(TemporalType.TIME)
     private Date score;
-
     private String pack;
-
-
    private String  level;
 
 
@@ -37,7 +33,7 @@ public class Scores implements Serializable {
         return "Id= " + id + "userID " +userID +" score= "+score +"  level=  "+level +" pack "+ pack;
     }
 
-    public Integer getId() {
+ /*   public Integer getId() {
         return id;
     }
 
@@ -62,7 +58,6 @@ public class Scores implements Serializable {
     }
 
 
-
     public String getLevel() {
         return level;
     }
@@ -77,7 +72,7 @@ public class Scores implements Serializable {
 
     public void setUserID(Integer userID) {
         this.userID = userID;
-    }
+    }*/
 
 
 

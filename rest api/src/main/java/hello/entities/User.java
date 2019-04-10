@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 public class User implements Serializable {
     public User() {
     }
@@ -56,8 +56,11 @@ public class User implements Serializable {
     public Integer getId() {
         return id;
     }
+    public String getValidationKey() {
+        return validationKey;
+    }
 
-    public void setId(Integer id) {
+    /*public void setId(Integer id) {
         this.id = id;
     }
 
@@ -85,12 +88,10 @@ public class User implements Serializable {
         this.nickname = nickname;
     }
 
-    public String getValidationKey() {
-        return validationKey;
-    }
+
 
     public void setValidationKey(String validationKey) {
         this.validationKey = validationKey;
-    }
+    }*/
 }
 
