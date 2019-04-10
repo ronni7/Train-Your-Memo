@@ -26,11 +26,11 @@ String generated=keyGenerator.generate(length);
         char[] generatedArray=generated.toCharArray();
         for (int i = 0; i < generatedArray.length; i++) {
             char c=generated.charAt(i);
-            System.out.println("charat = " + c);
+      
          assertTrue(Character.isDigit( c)|| Character.isUpperCase(c));
-            System.out.println("c = " + c);
+        
         }
-        System.out.println("generated = " + generated);
+ 
 
     }
 }
