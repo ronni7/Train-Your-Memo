@@ -23,7 +23,7 @@ public class Clock extends Timer {
         else secondsView = "";
         if (minutes < 10) minutesView = "0";//put '0' before minutes value to make it look more natural (00:00)
         else minutesView = "";
-        timeValue = minutesView + minutesView + ":" + secondsView + time;
+        timeValue = minutesView + minutes + ":" + secondsView + time;
         time++;
         if (time % 60 == 0) {
             minutes++;
