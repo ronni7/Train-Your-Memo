@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 11 Kwi 2019, 13:59
+-- Czas generowania: 11 Kwi 2019, 16:37
 -- Wersja serwera: 10.1.37-MariaDB
 -- Wersja PHP: 7.3.0
 
@@ -37,8 +37,8 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(127),
-(127);
+(128),
+(128);
 
 -- --------------------------------------------------------
 
@@ -78,6 +78,7 @@ INSERT INTO `scores` (`id`, `level`, `pack`, `score`, `userid`) VALUES
 (45, 'Beginner', 'NationalFlags', '00:00:21', 34),
 (46, 'Beginner', 'NationalFlags', '00:00:24', 34),
 (47, 'Beginner', 'NationalFlags', '00:00:22', 34),
+(127, 'Beginner', 'NationalFlags', '00:00:24', 34),
 (126, 'Beginner', 'NationalFlags', '00:00:27', 34),
 (125, 'Beginner', 'NationalFlags', '00:00:19', 34),
 (124, 'Beginner', 'NationalFlags', '00:00:28', 34),
@@ -95,10 +96,10 @@ INSERT INTO `scores` (`id`, `level`, `pack`, `score`, `userid`) VALUES
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `nickname` varchar(255) DEFAULT NULL,
-  `login` varchar(255) DEFAULT NULL,
-  `validation_key` varchar(255) DEFAULT NULL,
+  `name` varchar(40) DEFAULT NULL,
+  `nickname` varchar(30) DEFAULT NULL,
+  `login` varchar(30) DEFAULT NULL,
+  `validation_key` varchar(61) DEFAULT NULL,
   `activated` tinyint(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -110,7 +111,7 @@ INSERT INTO `user` (`id`, `name`, `nickname`, `login`, `validation_key`, `activa
 (1, 'Jack', 'Jackie', 'Lebowski', '$2a$10$RwBlDdyxBTu2Uz/WP0bL8.idfij4gNg7rhHJFkoY7.9hbzLukFcFW', 1),
 (5, 'John', 'Wrapperi', 'Stone', '$2a$10$6xRJdvDbuIrQqqYHxjPwy.9aTWF1tc9Fh8TNfRHlwHJf6x4kEpiOG', 1),
 (43, 'Mia', 'Miami', 'Price', '$2a$10$is92OHz/6QxPgE.7SYel.eANb0NrWkZiFnF9N7sYV04W48TD1cRoO', 1),
-(34, 'Jennifer', 'JennyColl', 'Jenny12', '$2a$10$yNLqynEi60GsvQ5xP4UuF.8Z8P2vzuDZ98QiGUoIOfPlolGKnoywC', 1),
+(34, 'Jennifer', 'JennyColl', 'Jenny12', '$2a$10$yNLqynEi60GsvQ5xP4UuF.8Z8P2vzuDZ98QiGUoIOfPlolGKnoywC', 0),
 (3, 'Tester', 'ValidatioNTester', 'Tester', '$2a$10$ohLd3kb6y3oiM2feNoZPEOE5UNVA4gQV7rfE26.2eZO13V1YPG3hO', 0),
 (2, 'ValidationTester', 'NicknameShowingInHighscoreList', 'ValidationTester', '$2a$10$4Lck5Juh1Eh0bpH7Pq2WS.WlsFY2CYla/tPuS4yM.59Btlj1z.N6C', 0);
 
