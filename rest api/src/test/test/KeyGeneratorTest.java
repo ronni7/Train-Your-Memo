@@ -29,15 +29,6 @@ String generated=keyGenerator.generate(length);
 
          assertTrue(Character.isDigit( c)|| Character.isUpperCase(c));
             }
-          
-         assertTrue(Character.isDigit( c)|| Character.isUpperCase(c));
-        
-        }
-         assertTrue(Character.isDigit( c)|| Character.isUpperCase(c));
-        
-        }
- 
-
-
+      
     }
 }
