@@ -26,12 +26,18 @@ String generated=keyGenerator.generate(length);
         char[] generatedArray=generated.toCharArray();
         for (int i = 0; i < generatedArray.length; i++) {
             char c=generated.charAt(i);
+
          assertTrue(Character.isDigit( c)|| Character.isUpperCase(c));
             }
           
          assertTrue(Character.isDigit( c)|| Character.isUpperCase(c));
         
         }
+         assertTrue(Character.isDigit( c)|| Character.isUpperCase(c));
+        
+        }
+ 
+
 
     }
 }
