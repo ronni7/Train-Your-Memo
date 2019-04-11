@@ -15,6 +15,7 @@ Client Side:
 Server(REST API)
 - Spring-Boot
 - Hibernate JPA
+-JUnit/SpringBootTest
 
 2. Structure
 
