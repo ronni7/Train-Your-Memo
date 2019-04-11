@@ -5,21 +5,22 @@ Train Your Memo
 # 3 Installation
 # 4 Gameplay 
 Train Your Memo is a PC desktop game
+
 1.Technologies
 Client Side:
--Java
--JavaFX
--CSS
+- Java
+- JavaFX
+- CSS
 Server(REST API)
--Spring-Boot
--Hibernate JPA
-2.Structure
+- Spring-Boot
+- Hibernate JPA
+2. Structure
 rest api folder contains REST API files, its excluded from client part, so it runs as a standalone application
 other files are client application
 Both application have been developed using Intellij IDEA Premium IDE
 REST API deployed using Apache Tomcat Application Server, connected through IDE and run as embedded
 In that part, MySQL database is used, also deployed locally with Apache
-3 Installation
+3. Installation
 REST API is built using Maven, so the project can be cloned and created from pom.xml
 Database can be created using bazatestowa.db from package Database
 Client-side is not built with Maven it needs to be copy-pasted into JavaFx type project(hope it will work same as for me). Also, it uses GSON library from 'libs' package, so it needs to be added into project's structure class path
