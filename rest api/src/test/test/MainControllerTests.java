@@ -1,31 +1,23 @@
 package test;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import hello.Application;
 import hello.utilities.enums.LEVELS;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.context.annotation.ApplicationScope;
-
 import javax.transaction.Transactional;
 import java.util.LinkedHashMap;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -37,10 +29,6 @@ public class MainControllerTests {
     private MockMvc mockMvc;
     private static String generatedKey;
 
-   /* @Test
-    public void ShouldReturnMoreThanOneJSONObjectInJSONArrayWhenKeyIsValid() throws Exception {
-        this.mockMvc.perform(get("http://localhost:8080/demo/all").param("validationKey", "A7XKXD").param("level", String.valueOf(LEVELS.Beginner))).andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.[0]").isNotEmpty()).andExpect(jsonPath("$.[1]").isNotEmpty());
-    }*/
    @Test
    public void ShouldReturnMoreThanOneJSONObjectInJSONArrayWhenKeyIsValid() throws Exception {
        this.mockMvc.perform(get("http://localhost:8080/demo/all").param("validationKey", "A7XKXD").param("level", String.valueOf(LEVELS.Beginner))).andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.[0]").isNotEmpty()).andExpect(jsonPath("$.[1]").isNotEmpty());
@@ -69,24 +57,22 @@ public class MainControllerTests {
     public void ShouldReturnGeneratedKey() throws Exception {
         MvcResult result= this.mockMvc.perform(post("http://localhost:8080/demo/register")
                 .param("name", "RandomName")
-                .param("nickname", "NicknameShowingInHighscoreList")
+                .param("nickname", "NicknameBeingShownInHighscoreList")
                 .param("login", "Random12"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$").isString())
         .andReturn();
-       if (result.getResponse().getContentLength()==6)
-           generatedKey=result.getResponse().getContentAsString();
-           else
+       if (result.getResponse().getContentLength()!=6)
                throw new Exception("content length is not equal to 6");
 
     }
 
     @Test
     public void ShouldReturnTrueWhenKeyWasNotActivatedAndHasBeenValidatedSuccessfully() throws Exception {
-     //   ShouldReturnGeneratedKey(); //only for creating user with unvalidated key
 
         this.mockMvc.perform(post("http://localhost:8080/demo/validateKey")
-                .param("validKey", "8NARA7"))
+                .param("validKey", "8NARA7")
+                .param("login", "Tester")) //Tester
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$").isBoolean())
                 .andExpect(jsonPath("$").value(Matchers.equalTo(true))); //returns true if validation is successful

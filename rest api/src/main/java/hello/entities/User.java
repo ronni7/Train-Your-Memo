@@ -60,7 +60,10 @@ public class User implements Serializable {
         return validationKey;
     }
 
-    /*public void setId(Integer id) {
+    public String getLogin() {
+        return login;
+    }
+/*public void setId(Integer id) {
         this.id = id;
     }
 
